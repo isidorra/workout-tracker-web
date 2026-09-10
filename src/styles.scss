@@ -103,6 +103,13 @@ html {
     )
   );
 
+  @include mat.menu-overrides(
+    (
+      container-shape: 8px,
+      item-icon-size: 20px,
+    )
+  );
+
   @include mat.card-overrides(
     (
       outlined-container-shape: 14px,
@@ -124,6 +131,14 @@ html {
   width: var(--mat-icon-button-icon-size);
   height: var(--mat-icon-button-icon-size);
   font-size: var(--mat-icon-button-icon-size);
+}
+
+.mat-mdc-menu-item .mat-icon {
+  font-size: var(--mat-menu-item-icon-size);
+}
+
+.mat-mdc-menu-panel .mat-mdc-menu-content {
+  padding-block: 0;
 }
 
 body {

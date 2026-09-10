@@ -1,10 +1,11 @@
 import { ChangeDetectionStrategy, Component } from "@angular/core";
 import { MatIcon } from "@angular/material/icon";
 import { RouterLink } from "@angular/router";
+import { TranslocoDirective } from "@jsverse/transloco";
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [MatIcon, RouterLink],
+  imports: [MatIcon, RouterLink, TranslocoDirective],
   selector: "app-logo",
   styles: `
     :host {
@@ -31,7 +32,12 @@ import { RouterLink } from "@angular/router";
     }
   `,
   template: `
-    <a class="logo" routerLink="/" aria-label="Home">
+    <a
+      *transloco="let t; prefix: 'logo'"
+      class="logo"
+      routerLink="/"
+      [attr.aria-label]="t('homeLabel')"
+    >
       <mat-icon class="logo__mark">clear_all</mat-icon>
       fitlog
     </a>

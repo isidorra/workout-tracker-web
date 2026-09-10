@@ -1,0 +1,35 @@
+{
+  "navbar": {
+    "login": "Prijava",
+    "register": "Registracija"
+  },
+  "logo": {
+    "homeLabel": "Početna"
+  },
+  "themeToggler": {
+    "switchToLight": "Pređi na svetlu temu",
+    "switchToDark": "Pređi na tamnu temu"
+  },
+  "languagePicker": {
+    "label": "Promeni jezik"
+  },
+  "loginPage": {
+    "heading": "Zdravo opet",
+    "description": "Prijavi se da beležiš treninge i pratiš svoj napredak.",
+    "email": "Imejl",
+    "password": "Lozinka",
+    "submit": "Prijavi se",
+    "footerPrompt": "Prvi put si ovde?",
+    "footerLink": "Napravi nalog"
+  },
+  "registerPage": {
+    "heading": "Napravi nalog",
+    "description": "Napravi nalog i počni da pratiš svoje treninge.",
+    "name": "Tvoje ime",
+    "email": "Imejl",
+    "password": "Lozinka",
+    "submit": "Napravi nalog",
+    "footerPrompt": "Već imaš nalog?",
+    "footerLink": "Prijavi se"
+  }
+}

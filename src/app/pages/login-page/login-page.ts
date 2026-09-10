@@ -3,11 +3,12 @@ import { MatButton } from "@angular/material/button";
 import { MatFormField, MatLabel } from "@angular/material/form-field";
 import { MatInput } from "@angular/material/input";
 import { RouterLink } from "@angular/router";
+import { TranslocoDirective } from "@jsverse/transloco";
 import { AuthCard } from "../../components/layout/auth-card/auth-card";
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [AuthCard, MatFormField, MatLabel, MatInput, MatButton, RouterLink],
+  imports: [AuthCard, MatFormField, MatLabel, MatInput, MatButton, RouterLink, TranslocoDirective],
   selector: "app-login-page",
   styles: `
     :host {
@@ -26,26 +27,27 @@ import { AuthCard } from "../../components/layout/auth-card/auth-card";
   `,
   template: `
     <app-auth-card
-      heading="Welcome back"
-      description="Sign in to log workouts and check your progress."
+      *transloco="let t; prefix: 'loginPage'"
+      [heading]="t('heading')"
+      [description]="t('description')"
     >
       <form novalidate (submit)="$event.preventDefault()">
         <mat-form-field>
-          <mat-label>Email</mat-label>
+          <mat-label>{{ t("email") }}</mat-label>
           <input matInput type="email" autocomplete="email" />
         </mat-form-field>
 
         <mat-form-field>
-          <mat-label>Password</mat-label>
+          <mat-label>{{ t("password") }}</mat-label>
           <input matInput type="password" autocomplete="current-password" />
         </mat-form-field>
 
-        <button matButton="filled" type="submit">Sign in</button>
+        <button matButton="filled" type="submit">{{ t("submit") }}</button>
       </form>
 
       <ng-container authCardFooter>
-        New here?
-        <a matButton routerLink="/register">Create an account</a>
+        {{ t("footerPrompt") }}
+        <a matButton routerLink="/register">{{ t("footerLink") }}</a>
       </ng-container>
     </app-auth-card>
   `,

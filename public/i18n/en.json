@@ -1,0 +1,35 @@
+{
+  "navbar": {
+    "login": "Login",
+    "register": "Register"
+  },
+  "logo": {
+    "homeLabel": "Home"
+  },
+  "themeToggler": {
+    "switchToLight": "Switch to light theme",
+    "switchToDark": "Switch to dark theme"
+  },
+  "languagePicker": {
+    "label": "Change language"
+  },
+  "loginPage": {
+    "heading": "Welcome back",
+    "description": "Sign in to log workouts and check your progress.",
+    "email": "Email",
+    "password": "Password",
+    "submit": "Sign in",
+    "footerPrompt": "New here?",
+    "footerLink": "Create an account"
+  },
+  "registerPage": {
+    "heading": "Create account",
+    "description": "Create an account to start tracking your workouts.",
+    "name": "Your name",
+    "email": "Email",
+    "password": "Password",
+    "submit": "Create account",
+    "footerPrompt": "Already have an account?",
+    "footerLink": "Sign in"
+  }
+}

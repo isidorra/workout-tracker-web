@@ -2,12 +2,22 @@ import { ChangeDetectionStrategy, Component } from "@angular/core";
 import { MatButton } from "@angular/material/button";
 import { MatToolbar } from "@angular/material/toolbar";
 import { RouterLink } from "@angular/router";
+import { TranslocoDirective } from "@jsverse/transloco";
+import { LanguagePicker } from "../../common/language-picker/language-picker";
 import { Logo } from "../../common/logo/logo";
 import { ThemeToggler } from "../../common/theme-toggler/theme-toggler";
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [MatToolbar, MatButton, RouterLink, Logo, ThemeToggler],
+  imports: [
+    MatToolbar,
+    MatButton,
+    RouterLink,
+    TranslocoDirective,
+    Logo,
+    ThemeToggler,
+    LanguagePicker,
+  ],
   selector: "app-navbar",
   styles: `
     mat-toolbar {
@@ -42,9 +52,12 @@ import { ThemeToggler } from "../../common/theme-toggler/theme-toggler";
       <div class="navbar__inner">
         <app-logo />
 
-        <a matButton routerLink="/login">Login</a>
-        <a matButton="filled" routerLink="/register">Register</a>
+        <ng-container *transloco="let t; prefix: 'navbar'">
+          <a matButton routerLink="/login">{{ t("login") }}</a>
+          <a matButton="filled" routerLink="/register">{{ t("register") }}</a>
+        </ng-container>
         <app-theme-toggler />
+        <app-language-picker />
       </div>
     </mat-toolbar>
   `,
