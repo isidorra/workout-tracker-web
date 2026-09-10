@@ -31,5 +31,10 @@
     "submit": "Create account",
     "footerPrompt": "Already have an account?",
     "footerLink": "Sign in"
+  },
+  "notFoundPage": {
+    "heading": "Page not found",
+    "description": "The page you're looking for doesn't exist or has been moved.",
+    "homeLink": "Back to home"
   }
 }

@@ -31,5 +31,10 @@
     "submit": "Napravi nalog",
     "footerPrompt": "Već imaš nalog?",
     "footerLink": "Prijavi se"
+  },
+  "notFoundPage": {
+    "heading": "Stranica nije pronađena",
+    "description": "Stranica koju tražiš ne postoji ili je premeštena.",
+    "homeLink": "Nazad na početnu"
   }
 }
