@@ -1,16 +1,24 @@
-import { Component, signal } from "@angular/core";
+import { ChangeDetectionStrategy, Component } from "@angular/core";
 import { RouterOutlet } from "@angular/router";
+import { Navbar } from "./components/layout/navbar/navbar";
 
 @Component({
-  imports: [RouterOutlet],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  imports: [Navbar, RouterOutlet],
   selector: "app-root",
-  styles: [],
+  styles: `
+    main {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 24px;
+    }
+  `,
   template: `
-    <h1>Hello, {{ title() }}</h1>
+    <app-navbar />
 
-    <router-outlet />
+    <main>
+      <router-outlet />
+    </main>
   `,
 })
-export class App {
-  protected readonly title = signal("workout-tracker-web");
-}
+export class App {}

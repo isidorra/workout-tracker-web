@@ -1,0 +1,119 @@
+@use "@angular/material" as mat;
+@use "./styles/theme-colors" as theme;
+
+$color-overrides: (
+  background: light-dark(#e8ebee, #0d1013),
+  on-background: light-dark(#101619, #f2f5f7),
+  surface: light-dark(#ffffff, #15191e),
+  surface-dim: light-dark(#e8ebee, #0d1013),
+  surface-bright: light-dark(#ffffff, #1c2127),
+  surface-container-lowest: light-dark(#ffffff, #0d1013),
+  surface-container-low: light-dark(#f2f4f7, #15191e),
+  surface-container: light-dark(#f2f4f7, #1c2127),
+  surface-container-high: light-dark(#e8ebee, #1c2127),
+  surface-container-highest: light-dark(#e3e7ea, #1c2127),
+  on-surface: light-dark(#101619, #f2f5f7),
+  on-surface-variant: light-dark(rgba(16, 22, 29, 0.66), rgba(242, 245, 247, 0.68)),
+  outline: light-dark(rgba(16, 22, 29, 0.42), rgba(242, 245, 247, 0.45)),
+  outline-variant: light-dark(rgba(16, 22, 29, 0.12), rgba(255, 255, 255, 0.11)),
+  primary: light-dark(#c3f53c, #c3f53c),
+  on-primary: light-dark(#111608, #0d1013),
+  tertiary: light-dark(#e04f19, #ff7a45),
+  on-tertiary: light-dark(#ffffff, #0d1013),
+);
+
+html {
+  height: 100%;
+
+  color-scheme: light dark;
+
+  @include mat.theme(
+    (
+      color: (
+        primary: theme.$primary-palette,
+        tertiary: theme.$tertiary-palette,
+      ),
+      typography: (
+        Barlow,
+        sans-serif,
+      ),
+      density: 0,
+    ),
+    $overrides: $color-overrides
+  );
+
+  --app-font-condensed: "Barlow Condensed", sans-serif;
+
+  --app-ink-2: light-dark(rgba(16, 22, 29, 0.66), rgba(242, 245, 247, 0.68));
+  --app-ink-3: light-dark(rgba(16, 22, 29, 0.42), rgba(242, 245, 247, 0.45));
+  --app-line: light-dark(rgba(16, 22, 29, 0.12), rgba(255, 255, 255, 0.11));
+  --app-line-subtle: light-dark(rgba(16, 22, 29, 0.06), rgba(255, 255, 255, 0.06));
+  --app-heat: light-dark(#e04f19, #ff7a45);
+
+  --app-shadow-near: light-dark(rgba(16, 22, 29, 0.06), rgba(0, 0, 0, 0.4));
+  --app-shadow-far: light-dark(rgba(16, 22, 29, 0.05), rgba(0, 0, 0, 0.35));
+  --app-shadow: 0 1px 2px var(--app-shadow-near), 0 8px 24px var(--app-shadow-far);
+}
+
+html[data-theme="light"] {
+  color-scheme: light;
+}
+
+html[data-theme="dark"] {
+  color-scheme: dark;
+}
+
+html {
+  @include mat.button-overrides(
+    (
+      filled-container-shape: 9px,
+      outlined-container-shape: 9px,
+      protected-container-shape: 9px,
+      tonal-container-shape: 9px,
+      text-container-shape: 8px,
+      filled-label-text-font: var(--app-font-condensed),
+      outlined-label-text-font: var(--app-font-condensed),
+      protected-label-text-font: var(--app-font-condensed),
+      tonal-label-text-font: var(--app-font-condensed),
+      text-label-text-font: var(--app-font-condensed),
+      filled-label-text-size: 1rem,
+      outlined-label-text-size: 1rem,
+      protected-label-text-size: 1rem,
+      tonal-label-text-size: 1rem,
+      text-label-text-size: 1rem,
+      filled-label-text-weight: 700,
+      outlined-label-text-weight: 700,
+      protected-label-text-weight: 700,
+      tonal-label-text-weight: 700,
+      text-label-text-weight: 700,
+      filled-label-text-transform: uppercase,
+      outlined-label-text-transform: uppercase,
+      protected-label-text-transform: uppercase,
+      tonal-label-text-transform: uppercase,
+      text-label-text-transform: uppercase,
+    )
+  );
+
+  @include mat.icon-button-overrides(
+    (
+      container-shape: 8px,
+      icon-size: 20px,
+    )
+  );
+}
+
+.mat-mdc-icon-button .mat-icon {
+  width: var(--mat-icon-button-icon-size);
+  height: var(--mat-icon-button-icon-size);
+  font-size: var(--mat-icon-button-icon-size);
+}
+
+body {
+  height: 100%;
+  margin: 0;
+
+  background-color: var(--mat-sys-background);
+  color: var(--mat-sys-on-surface);
+  font: var(--mat-sys-body-medium);
+  -webkit-font-smoothing: antialiased;
+}

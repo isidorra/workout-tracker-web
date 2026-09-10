@@ -51,7 +51,8 @@
                 "input": "public"
               }
             ],
-            "styles": ["src/styles.css"]
+            "styles": ["src/styles.scss"],
+            "inlineStyleLanguage": "scss"
           },
           "configurations": {
             "production": {
