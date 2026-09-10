@@ -7,8 +7,19 @@ import { Navbar } from "./components/layout/navbar/navbar";
   imports: [Navbar, RouterOutlet],
   selector: "app-root",
   styles: `
+    :host {
+      display: flex;
+      flex-direction: column;
+      min-height: 100%;
+    }
+
     main {
-      max-width: 1200px;
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+      box-sizing: border-box;
+      width: 100%;
+      max-width: 1248px;
       margin: 0 auto;
       padding: 24px;
     }

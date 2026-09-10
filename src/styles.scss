@@ -91,6 +91,8 @@ html {
       protected-label-text-transform: uppercase,
       tonal-label-text-transform: uppercase,
       text-label-text-transform: uppercase,
+      text-label-text-color: var(--mat-sys-on-surface),
+      outlined-label-text-color: var(--mat-sys-on-surface),
     )
   );
 
@@ -98,6 +100,22 @@ html {
     (
       container-shape: 8px,
       icon-size: 20px,
+    )
+  );
+
+  @include mat.card-overrides(
+    (
+      outlined-container-shape: 14px,
+      outlined-container-elevation: var(--app-shadow),
+    )
+  );
+
+  @include mat.form-field-overrides(
+    (
+      outlined-container-shape: 9px,
+      outlined-caret-color: var(--mat-sys-on-surface),
+      outlined-focus-outline-color: var(--mat-sys-on-surface),
+      outlined-focus-label-text-color: var(--mat-sys-on-surface),
     )
   );
 }
