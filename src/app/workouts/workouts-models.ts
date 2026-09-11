@@ -28,6 +28,16 @@ export const WORKOUT_TYPE_KEYS: Record<WorkoutType, string> = {
 export const RATING_MIN = 1;
 export const RATING_MAX = 10;
 
+/** Matches `WorkoutPolicy.DefaultPageSize` so the client never has to guess the page length. */
+export const WORKOUTS_PAGE_SIZE = 20;
+
+/** Query for one page of the signed-in user's workouts. `type` is null for every type. */
+export interface WorkoutsListQuery {
+  type: WorkoutType | null;
+  page: number;
+  pageSize: number;
+}
+
 export interface Workout {
   id: string;
   type: WorkoutType;
@@ -117,5 +127,5 @@ function pad(value: number): string {
 
 export type WorkoutsStatus = "idle" | "loading" | "loaded" | "error";
 
-/** What the workouts page shows, derived from the status and whether any workouts are held. */
-export type WorkoutsView = "loading" | "error" | "empty" | "list";
+/** What the workouts page shows, derived from the status, filter, and whether any workouts are held. */
+export type WorkoutsView = "loading" | "error" | "empty" | "filterEmpty" | "list";

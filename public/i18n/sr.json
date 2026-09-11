@@ -60,7 +60,14 @@
     "emptyDescription": "Zabeleži prvi trening i pojaviće se ovde.",
     "errorHeading": "Učitavanje treninga nije uspelo",
     "retry": "Pokušaj ponovo",
-    "logWorkout": "Zabeleži trening"
+    "logWorkout": "Zabeleži trening",
+    "filterAll": "Svi",
+    "filterGroup": "Filtriraj po vrsti",
+    "emptyFilterHeading": "Nema treninga tipa {{type}}",
+    "emptyFilterDescription": "Zabeleži trening tipa {{type}} i pojaviće se ovde.",
+    "previousPage": "Prethodna",
+    "nextPage": "Sledeća",
+    "pageOf": "Stranica {{page}} od {{pages}}"
   },
   "workoutDialog": {
     "title": "Zabeleži trening",

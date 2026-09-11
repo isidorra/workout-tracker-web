@@ -1,10 +1,22 @@
 import { createFeature, createReducer, createSelector, on } from "@ngrx/store";
 import { AuthApiActions, AuthInterceptorActions } from "../auth/auth-actions";
 import { WorkoutDialogActions, WorkoutsApiActions, WorkoutsPageActions } from "./workouts-actions";
-import { Workout, WorkoutsStatus, WorkoutsView } from "./workouts-models";
+import {
+  WORKOUTS_PAGE_SIZE,
+  Workout,
+  WorkoutType,
+  WorkoutsListQuery,
+  WorkoutsStatus,
+  WorkoutsView,
+} from "./workouts-models";
 
 export interface WorkoutsState {
   workouts: Workout[];
+  /** Null means every type. */
+  type: WorkoutType | null;
+  page: number;
+  pageSize: number;
+  totalCount: number;
   status: WorkoutsStatus;
   /** Translation key of the last failed load; cleared once a new load starts. */
   errorKey: string | null;
@@ -14,6 +26,10 @@ export interface WorkoutsState {
 
 export const initialWorkoutsState: WorkoutsState = {
   workouts: [],
+  type: null,
+  page: 1,
+  pageSize: WORKOUTS_PAGE_SIZE,
+  totalCount: 0,
   status: "idle",
   errorKey: null,
   pending: false,
@@ -29,9 +45,25 @@ export const workoutsFeature = createFeature({
       status: "loading",
       errorKey: null,
     })),
-    on(WorkoutsApiActions.loadWorkoutsSuccess, (state, { workouts }): WorkoutsState => ({
+    on(WorkoutsPageActions.filterChanged, (state, { filterType }): WorkoutsState => ({
       ...state,
-      workouts,
+      type: filterType,
+      page: 1,
+      status: "loading",
+      errorKey: null,
+    })),
+    on(WorkoutsPageActions.pageChanged, (state, { page }): WorkoutsState => ({
+      ...state,
+      page,
+      status: "loading",
+      errorKey: null,
+    })),
+    on(WorkoutsApiActions.loadWorkoutsSuccess, (state, { page }): WorkoutsState => ({
+      ...state,
+      workouts: page.items,
+      page: page.page,
+      pageSize: page.pageSize,
+      totalCount: page.totalCount,
       status: "loaded",
     })),
     on(WorkoutsApiActions.loadWorkoutsFailure, (state, { messageKey }): WorkoutsState => ({
@@ -40,10 +72,10 @@ export const workoutsFeature = createFeature({
       errorKey: messageKey,
     })),
     on(WorkoutDialogActions.submitted, (state): WorkoutsState => ({ ...state, pending: true })),
-    on(WorkoutsApiActions.createWorkoutSuccess, (state, { workout }): WorkoutsState => ({
+    on(WorkoutsApiActions.createWorkoutSuccess, (state): WorkoutsState => ({
       ...state,
-      workouts: [...state.workouts, workout].sort(newestFirst),
       pending: false,
+      page: 1,
     })),
     on(WorkoutsApiActions.createWorkoutFailure, (state): WorkoutsState => ({
       ...state,
@@ -56,34 +88,46 @@ export const workoutsFeature = createFeature({
       (): WorkoutsState => initialWorkoutsState,
     ),
   ),
-  extraSelectors: ({ selectWorkouts, selectStatus }) => ({
-    selectView: createSelector(selectWorkouts, selectStatus, (workouts, status): WorkoutsView => {
-      if (workouts.length > 0) {
-        return "list";
-      }
+  extraSelectors: ({
+    selectWorkouts,
+    selectStatus,
+    selectType,
+    selectPage,
+    selectPageSize,
+    selectTotalCount,
+  }) => ({
+    selectView: createSelector(
+      selectWorkouts,
+      selectStatus,
+      selectType,
+      selectTotalCount,
+      (workouts, status, type, totalCount): WorkoutsView => {
+        if (workouts.length > 0) {
+          return "list";
+        }
 
-      if (status === "loaded") {
-        return "empty";
-      }
+        if (status === "loaded") {
+          if (type !== null) {
+            return "filterEmpty";
+          }
 
-      // "idle" only lasts until the page dispatches its first load, so it reads as loading.
-      return status === "error" ? "error" : "loading";
-    }),
+          if (totalCount === 0) {
+            return "empty";
+          }
+        }
+
+        // "idle" only lasts until the page dispatches its first load, so it reads as loading.
+        return status === "error" ? "error" : "loading";
+      },
+    ),
+    selectListQuery: createSelector(
+      selectType,
+      selectPage,
+      selectPageSize,
+      (type, page, pageSize): WorkoutsListQuery => ({ type, page, pageSize }),
+    ),
+    selectPageCount: createSelector(selectTotalCount, selectPageSize, (totalCount, pageSize) =>
+      pageSize > 0 ? Math.ceil(totalCount / pageSize) : 0,
+    ),
   }),
 });
-
-/**
- * The API's order: latest `performedAt` first, then latest `createdAt`. Both are ISO 8601 strings,
- * so comparing them as text compares them in time.
- */
-function newestFirst(a: Workout, b: Workout): number {
-  return descending(a.performedAt, b.performedAt) || descending(a.createdAt, b.createdAt);
-}
-
-function descending(a: string, b: string): number {
-  if (a === b) {
-    return 0;
-  }
-
-  return a < b ? 1 : -1;
-}

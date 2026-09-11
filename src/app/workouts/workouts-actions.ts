@@ -1,11 +1,15 @@
 import { createActionGroup, emptyProps, props } from "@ngrx/store";
-import { Workout, WorkoutInput } from "./workouts-models";
+import { Paged } from "../shared/paged";
+import { Workout, WorkoutInput, WorkoutType } from "./workouts-models";
 
 export const WorkoutsPageActions = createActionGroup({
   source: "Workouts Page",
   events: {
     Opened: emptyProps(),
     "Retry Clicked": emptyProps(),
+    // Wrapped; a top-level `type` would clash with the action's own type field.
+    "Filter Changed": props<{ filterType: WorkoutType | null }>(),
+    "Page Changed": props<{ page: number }>(),
   },
 });
 
@@ -21,7 +25,7 @@ export const WorkoutDialogActions = createActionGroup({
 export const WorkoutsApiActions = createActionGroup({
   source: "Workouts API",
   events: {
-    "Load Workouts Success": props<{ workouts: Workout[] }>(),
+    "Load Workouts Success": props<{ page: Paged<Workout> }>(),
     "Load Workouts Failure": props<{ messageKey: string }>(),
 
     "Create Workout Success": props<{ workout: Workout }>(),

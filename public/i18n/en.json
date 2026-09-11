@@ -60,7 +60,14 @@
     "emptyDescription": "Log your first session and it will show up here.",
     "errorHeading": "Couldn't load your workouts",
     "retry": "Try again",
-    "logWorkout": "Log workout"
+    "logWorkout": "Log workout",
+    "filterAll": "All",
+    "filterGroup": "Filter by type",
+    "emptyFilterHeading": "No {{type}} workouts",
+    "emptyFilterDescription": "Log a {{type}} session and it will show up here.",
+    "previousPage": "Previous",
+    "nextPage": "Next",
+    "pageOf": "Page {{page}} of {{pages}}"
   },
   "workoutDialog": {
     "title": "Log a workout",
