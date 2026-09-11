@@ -1,14 +1,33 @@
-import { ChangeDetectionStrategy, Component } from "@angular/core";
+import { ChangeDetectionStrategy, Component, inject, signal } from "@angular/core";
+import { FormField, FormRoot, form } from "@angular/forms/signals";
 import { MatButton } from "@angular/material/button";
-import { MatFormField, MatLabel } from "@angular/material/form-field";
+import { MatError, MatFormField, MatLabel } from "@angular/material/form-field";
 import { MatInput } from "@angular/material/input";
 import { RouterLink } from "@angular/router";
 import { TranslocoDirective } from "@jsverse/transloco";
+import { Store } from "@ngrx/store";
+import { AuthActions } from "../../auth/auth-actions";
+import { authFeature } from "../../auth/auth-feature";
+import { LoginRequest } from "../../auth/auth-models";
+import { loginSchema } from "../../auth/auth-schemas";
+import { FieldError } from "../../components/common/field-error/field-error";
 import { AuthCard } from "../../components/layout/auth-card/auth-card";
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [AuthCard, MatFormField, MatLabel, MatInput, MatButton, RouterLink, TranslocoDirective],
+  imports: [
+    AuthCard,
+    FieldError,
+    FormField,
+    FormRoot,
+    MatFormField,
+    MatLabel,
+    MatError,
+    MatInput,
+    MatButton,
+    RouterLink,
+    TranslocoDirective,
+  ],
   selector: "app-login-page",
   styles: `
     :host {
@@ -31,18 +50,29 @@ import { AuthCard } from "../../components/layout/auth-card/auth-card";
       [heading]="t('heading')"
       [description]="t('description')"
     >
-      <form novalidate (submit)="$event.preventDefault()">
+      <form [formRoot]="loginForm">
         <mat-form-field>
           <mat-label>{{ t("email") }}</mat-label>
-          <input matInput type="email" autocomplete="email" />
+          <input matInput type="email" autocomplete="email" [formField]="loginForm.email" />
+          @if (loginForm.email().errors()[0]; as error) {
+            <mat-error><app-field-error [error]="error" /></mat-error>
+          }
         </mat-form-field>
 
         <mat-form-field>
           <mat-label>{{ t("password") }}</mat-label>
-          <input matInput type="password" autocomplete="current-password" />
+          <input
+            matInput
+            type="password"
+            autocomplete="current-password"
+            [formField]="loginForm.password"
+          />
+          @if (loginForm.password().errors()[0]; as error) {
+            <mat-error><app-field-error [error]="error" /></mat-error>
+          }
         </mat-form-field>
 
-        <button matButton="filled" type="submit">{{ t("submit") }}</button>
+        <button matButton="filled" type="submit" [disabled]="pending()">{{ t("submit") }}</button>
       </form>
 
       <ng-container authCardFooter>
@@ -52,4 +82,19 @@ import { AuthCard } from "../../components/layout/auth-card/auth-card";
     </app-auth-card>
   `,
 })
-export class LoginPage {}
+export class LoginPage {
+  private readonly store = inject(Store);
+  private readonly model = signal<LoginRequest>({ email: "", password: "" });
+
+  protected readonly pending = this.store.selectSignal(authFeature.selectPending);
+
+  protected readonly loginForm = form(this.model, loginSchema, {
+    submission: {
+      // Only runs once every field is valid; submitting also marks all fields touched, which is
+      // what reveals their errors.
+      action: async () => {
+        this.store.dispatch(AuthActions.login(this.model()));
+      },
+    },
+  });
+}

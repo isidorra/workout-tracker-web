@@ -125,6 +125,12 @@ html {
       outlined-focus-label-text-color: var(--mat-sys-on-surface),
     )
   );
+
+  @include mat.snack-bar-overrides(
+    (
+      container-shape: 9px,
+    )
+  );
 }
 
 .mat-mdc-icon-button .mat-icon {

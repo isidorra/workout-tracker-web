@@ -3,6 +3,10 @@
     "login": "Prijava",
     "register": "Registracija"
   },
+  "userMenu": {
+    "label": "Meni naloga",
+    "logout": "Odjavi se"
+  },
   "logo": {
     "homeLabel": "Početna"
   },
@@ -32,9 +36,39 @@
     "footerPrompt": "Već imaš nalog?",
     "footerLink": "Prijavi se"
   },
+  "landing": {
+    "heading": "Zabeleži svaki trening",
+    "description": "Beleži treninge i prati svoj napredak iz nedelje u nedelju.",
+    "register": "Počni odmah",
+    "login": "Prijavi se"
+  },
+  "dashboard": {
+    "heading": "Kontrolna tabla",
+    "greeting": "Zdravo, {{name}}. Vreme je za trening."
+  },
   "notFoundPage": {
     "heading": "Stranica nije pronađena",
     "description": "Stranica koju tražiš ne postoji ili je premeštena.",
     "homeLink": "Nazad na početnu"
+  },
+  "fieldError": {
+    "required": "Ovo polje je obavezno",
+    "email": "Unesi ispravnu imejl adresu",
+    "minLength": "Mora imati najmanje {{min}} znakova",
+    "maxLength": "Može imati najviše {{max}} znakova"
+  },
+  "authErrors": {
+    "invalidCredentials": "Pogrešan imejl ili lozinka.",
+    "emailTaken": "Nalog sa ovim imejlom već postoji.",
+    "invalidName": "Uneto ime nije ispravno.",
+    "invalidEmail": "Uneti imejl nije ispravan.",
+    "invalidPassword": "Uneta lozinka nije ispravna.",
+    "invalidRequest": "Proveri unete podatke i pokušaj ponovo.",
+    "sessionExpired": "Sesija je istekla. Prijavi se ponovo.",
+    "network": "Server nije dostupan. Proveri vezu i pokušaj ponovo.",
+    "unexpected": "Nešto je pošlo naopako. Pokušaj ponovo."
+  },
+  "toast": {
+    "dismiss": "Zatvori"
   }
 }
