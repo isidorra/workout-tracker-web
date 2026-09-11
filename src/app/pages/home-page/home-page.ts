@@ -1,9 +1,30 @@
-import { Component } from "@angular/core";
+import { ChangeDetectionStrategy, Component, inject } from "@angular/core";
+import { Store } from "@ngrx/store";
+import { authFeature } from "../../auth/auth-feature";
+import { Dashboard } from "./dashboard/dashboard";
+import { Landing } from "./landing/landing";
 
 @Component({
-  imports: [],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  imports: [Dashboard, Landing],
   selector: "app-home-page",
-  styles: ``,
-  template: ` <p>home-page works!</p> `,
+  styles: `
+    :host {
+      display: flex;
+      flex: 1;
+      flex-direction: column;
+    }
+  `,
+  template: `
+    @if (isAuthenticated()) {
+      <app-dashboard />
+    } @else {
+      <app-landing />
+    }
+  `,
 })
-export class HomePage {}
+export class HomePage {
+  protected readonly isAuthenticated = inject(Store).selectSignal(
+    authFeature.selectIsAuthenticated,
+  );
+}

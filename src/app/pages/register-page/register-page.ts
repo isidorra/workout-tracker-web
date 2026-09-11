@@ -1,14 +1,38 @@
-import { ChangeDetectionStrategy, Component } from "@angular/core";
+import { ChangeDetectionStrategy, Component, inject, signal } from "@angular/core";
+import { FormField, FormRoot, form } from "@angular/forms/signals";
 import { MatButton } from "@angular/material/button";
-import { MatFormField, MatLabel } from "@angular/material/form-field";
+import { MatError, MatFormField, MatLabel, MatSuffix } from "@angular/material/form-field";
 import { MatInput } from "@angular/material/input";
 import { RouterLink } from "@angular/router";
 import { TranslocoDirective } from "@jsverse/transloco";
+import { Store } from "@ngrx/store";
+import { RegisterPageActions } from "../../auth/auth-actions";
+import { authFeature } from "../../auth/auth-feature";
+import { RegisterRequest } from "../../auth/auth-models";
+import { registerSchema } from "../../auth/auth-schemas";
+import { CapitalizeWords } from "../../components/common/capitalize-words/capitalize-words";
+import { FieldError } from "../../components/common/field-error/field-error";
+import { PasswordToggle } from "../../components/common/password-toggle/password-toggle";
 import { AuthCard } from "../../components/layout/auth-card/auth-card";
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [AuthCard, MatFormField, MatLabel, MatInput, MatButton, RouterLink, TranslocoDirective],
+  imports: [
+    AuthCard,
+    CapitalizeWords,
+    FieldError,
+    PasswordToggle,
+    FormField,
+    FormRoot,
+    MatFormField,
+    MatLabel,
+    MatError,
+    MatSuffix,
+    MatInput,
+    MatButton,
+    RouterLink,
+    TranslocoDirective,
+  ],
   selector: "app-register-page",
   styles: `
     :host {
@@ -19,10 +43,7 @@ import { AuthCard } from "../../components/layout/auth-card/auth-card";
     form {
       display: flex;
       flex-direction: column;
-    }
-
-    button[type="submit"] {
-      margin-top: 8px;
+      gap: 8px;
     }
   `,
   template: `
@@ -31,23 +52,38 @@ import { AuthCard } from "../../components/layout/auth-card/auth-card";
       [heading]="t('heading')"
       [description]="t('description')"
     >
-      <form novalidate (submit)="$event.preventDefault()">
+      <form [formRoot]="registerForm">
         <mat-form-field>
           <mat-label>{{ t("name") }}</mat-label>
-          <input matInput autocomplete="name" />
+          <input matInput appCapitalizeWords autocomplete="name" [formField]="registerForm.name" />
+          @if (registerForm.name().errors()[0]; as error) {
+            <mat-error><app-field-error [error]="error" /></mat-error>
+          }
         </mat-form-field>
 
         <mat-form-field>
           <mat-label>{{ t("email") }}</mat-label>
-          <input matInput type="email" autocomplete="email" />
+          <input matInput type="email" autocomplete="email" [formField]="registerForm.email" />
+          @if (registerForm.email().errors()[0]; as error) {
+            <mat-error><app-field-error [error]="error" /></mat-error>
+          }
         </mat-form-field>
 
         <mat-form-field>
           <mat-label>{{ t("password") }}</mat-label>
-          <input matInput type="password" autocomplete="new-password" />
+          <input
+            matInput
+            autocomplete="new-password"
+            [type]="passwordToggle.type()"
+            [formField]="registerForm.password"
+          />
+          <app-password-toggle #passwordToggle matIconSuffix />
+          @if (registerForm.password().errors()[0]; as error) {
+            <mat-error><app-field-error [error]="error" /></mat-error>
+          }
         </mat-form-field>
 
-        <button matButton="filled" type="submit">{{ t("submit") }}</button>
+        <button matButton="filled" type="submit" [disabled]="pending()">{{ t("submit") }}</button>
       </form>
 
       <ng-container authCardFooter>
@@ -57,4 +93,19 @@ import { AuthCard } from "../../components/layout/auth-card/auth-card";
     </app-auth-card>
   `,
 })
-export class RegisterPage {}
+export class RegisterPage {
+  private readonly store = inject(Store);
+  private readonly model = signal<RegisterRequest>({ name: "", email: "", password: "" });
+
+  protected readonly pending = this.store.selectSignal(authFeature.selectPending);
+
+  protected readonly registerForm = form(this.model, registerSchema, {
+    submission: {
+      // Only runs once every field is valid; submitting also marks all fields touched, which is
+      // what reveals their errors.
+      action: async () => {
+        this.store.dispatch(RegisterPageActions.submitted(this.model()));
+      },
+    },
+  });
+}

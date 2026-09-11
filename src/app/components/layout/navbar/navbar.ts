@@ -1,11 +1,14 @@
-import { ChangeDetectionStrategy, Component } from "@angular/core";
+import { ChangeDetectionStrategy, Component, inject } from "@angular/core";
 import { MatButton } from "@angular/material/button";
 import { MatToolbar } from "@angular/material/toolbar";
 import { RouterLink } from "@angular/router";
 import { TranslocoDirective } from "@jsverse/transloco";
+import { Store } from "@ngrx/store";
+import { authFeature } from "../../../auth/auth-feature";
 import { LanguagePicker } from "../../common/language-picker/language-picker";
 import { Logo } from "../../common/logo/logo";
 import { ThemeToggler } from "../../common/theme-toggler/theme-toggler";
+import { UserMenu } from "../user-menu/user-menu";
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -17,6 +20,7 @@ import { ThemeToggler } from "../../common/theme-toggler/theme-toggler";
     Logo,
     ThemeToggler,
     LanguagePicker,
+    UserMenu,
   ],
   selector: "app-navbar",
   styles: `
@@ -52,14 +56,23 @@ import { ThemeToggler } from "../../common/theme-toggler/theme-toggler";
       <div class="navbar__inner">
         <app-logo />
 
-        <ng-container *transloco="let t; prefix: 'navbar'">
-          <a matButton routerLink="/login">{{ t("login") }}</a>
-          <a matButton="filled" routerLink="/register">{{ t("register") }}</a>
-        </ng-container>
+        @if (!isAuthenticated()) {
+          <ng-container *transloco="let t; prefix: 'navbar'">
+            <a matButton routerLink="/login">{{ t("login") }}</a>
+            <a matButton="filled" routerLink="/register">{{ t("register") }}</a>
+          </ng-container>
+        }
         <app-theme-toggler />
         <app-language-picker />
+        @if (isAuthenticated()) {
+          <app-user-menu />
+        }
       </div>
     </mat-toolbar>
   `,
 })
-export class Navbar {}
+export class Navbar {
+  protected readonly isAuthenticated = inject(Store).selectSignal(
+    authFeature.selectIsAuthenticated,
+  );
+}
