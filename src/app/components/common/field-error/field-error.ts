@@ -1,7 +1,9 @@
 import { ChangeDetectionStrategy, Component, computed, input } from "@angular/core";
 import {
   MaxLengthValidationError,
+  MaxValidationError,
   MinLengthValidationError,
+  MinValidationError,
   ValidationError,
 } from "@angular/forms/signals";
 import { TranslocoPipe } from "@jsverse/transloco";
@@ -23,6 +25,14 @@ export class FieldError {
 
   protected readonly params = computed(() => {
     const error = this.error();
+
+    if (error instanceof MinValidationError) {
+      return { min: error.min };
+    }
+
+    if (error instanceof MaxValidationError) {
+      return { max: error.max };
+    }
 
     if (error instanceof MinLengthValidationError) {
       return { min: error.minLength };

@@ -131,6 +131,23 @@ html {
       container-shape: 9px,
     )
   );
+
+  @include mat.dialog-overrides(
+    (
+      container-shape: 14px,
+      container-elevation-shadow: var(--app-shadow),
+    )
+  );
+
+  @include mat.button-toggle-overrides(
+    (
+      shape: 9px,
+      divider-color: var(--app-line),
+      text-color: var(--mat-sys-on-surface),
+      selected-state-background-color: var(--mat-sys-primary),
+      selected-state-text-color: var(--mat-sys-on-primary),
+    )
+  );
 }
 
 .mat-mdc-icon-button .mat-icon {
@@ -145,6 +162,10 @@ html {
 
 .mat-mdc-menu-panel .mat-mdc-menu-content {
   padding-block: 0;
+}
+
+.app-segmented .mat-button-toggle-appearance-standard .mat-button-toggle-label-content {
+  padding: 0 4px;
 }
 
 body {

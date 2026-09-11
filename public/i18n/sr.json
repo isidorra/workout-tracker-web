@@ -1,7 +1,9 @@
 {
   "navbar": {
     "login": "Prijava",
-    "register": "Registracija"
+    "register": "Registracija",
+    "dashboard": "Kontrolna tabla",
+    "workouts": "Treninzi"
   },
   "userMenu": {
     "label": "Meni naloga",
@@ -50,6 +52,89 @@
     "heading": "Kontrolna tabla",
     "greeting": "Zdravo, {{name}}. Vreme je za trening."
   },
+  "workoutsPage": {
+    "heading": "Treninzi",
+    "description": "Svi tvoji treninzi na jednom mestu.",
+    "loading": "Učitavanje treninga",
+    "emptyHeading": "Još nema treninga",
+    "emptyDescription": "Zabeleži prvi trening i pojaviće se ovde.",
+    "errorHeading": "Učitavanje treninga nije uspelo",
+    "retry": "Pokušaj ponovo",
+    "logWorkout": "Zabeleži trening"
+  },
+  "workoutDialog": {
+    "title": "Zabeleži trening",
+    "close": "Zatvori",
+    "sectionWhat": "Koja vrsta treninga?",
+    "sectionWhen": "Kada i koliko dugo?",
+    "sectionHow": "Kako je bilo?",
+    "type": "Vrsta treninga",
+    "date": "Datum",
+    "time": "Vreme početka",
+    "duration": "Trajanje (min)",
+    "calories": "Kalorije (kcal)",
+    "difficulty": "Težina",
+    "difficultyWords": {
+      "1": "vrlo lako",
+      "2": "lako",
+      "3": "lagano",
+      "4": "podnošljivo",
+      "5": "umereno",
+      "6": "zahtevno",
+      "7": "teško",
+      "8": "vrlo teško",
+      "9": "brutalno",
+      "10": "maksimalno"
+    },
+    "fatigue": "Umor posle treninga",
+    "fatigueWords": {
+      "1": "sveže",
+      "2": "opušteno",
+      "3": "sasvim dobro",
+      "4": "blagi umor",
+      "5": "osetan umor",
+      "6": "priličan umor",
+      "7": "veliki umor",
+      "8": "iscrpljenost",
+      "9": "potpuna iscrpljenost",
+      "10": "na izmaku snage"
+    },
+    "notes": "Beleške",
+    "notesPlaceholder": "Kako je prošlo? Nešto za sledeći put?",
+    "save": "Sačuvaj trening",
+    "cancel": "Otkaži",
+    "saved": "Trening je sačuvan"
+  },
+  "workoutSummary": {
+    "dateFormat": "EEEE, d. MMMM, HH:mm",
+    "dateFormatWithYear": "EEEE, d. MMMM y, HH:mm",
+    "duration": {
+      "hours": "{{hours}}h",
+      "minutes": "{{minutes}}min",
+      "hoursMinutes": "{{hours}}h {{minutes}}min"
+    },
+    "kcal": "{{value}} kcal"
+  },
+  "workoutDetails": {
+    "difficulty": "Težina {{value}} od {{max}}",
+    "difficultyLabel": "Težina",
+    "fatigue": "Umor posle treninga {{value}} od {{max}}",
+    "fatigueLabel": "Umor posle treninga"
+  },
+  "workoutType": {
+    "cardio": {
+      "code": "KAR",
+      "name": "Kardio"
+    },
+    "strength": {
+      "code": "SNA",
+      "name": "Snaga"
+    },
+    "flexibility": {
+      "code": "FLE",
+      "name": "Fleksibilnost"
+    }
+  },
   "notFoundPage": {
     "heading": "Stranica nije pronađena",
     "description": "Stranica koju tražiš ne postoji ili je premeštena.",
@@ -59,7 +144,11 @@
     "required": "Ovo polje je obavezno",
     "email": "Unesi ispravnu imejl adresu",
     "minLength": "Mora imati najmanje {{min}} znakova",
-    "maxLength": "Može imati najviše {{max}} znakova"
+    "maxLength": "Može imati najviše {{max}} znakova",
+    "min": "Mora biti najmanje {{min}}",
+    "max": "Može biti najviše {{max}}",
+    "integer": "Unesi ceo broj",
+    "parse": "Unesi ispravnu vrednost"
   },
   "authErrors": {
     "invalidCredentials": "Pogrešan imejl ili lozinka.",
@@ -69,6 +158,11 @@
     "invalidPassword": "Uneta lozinka nije ispravna.",
     "invalidRequest": "Proveri unete podatke i pokušaj ponovo.",
     "sessionExpired": "Sesija je istekla. Prijavi se ponovo.",
+    "network": "Server nije dostupan. Proveri vezu i pokušaj ponovo.",
+    "unexpected": "Nešto je pošlo naopako. Pokušaj ponovo."
+  },
+  "workoutsErrors": {
+    "invalidRequest": "Proveri unete podatke i pokušaj ponovo.",
     "network": "Server nije dostupan. Proveri vezu i pokušaj ponovo.",
     "unexpected": "Nešto je pošlo naopako. Pokušaj ponovo."
   },

@@ -1,7 +1,9 @@
 {
   "navbar": {
     "login": "Login",
-    "register": "Register"
+    "register": "Register",
+    "dashboard": "Dashboard",
+    "workouts": "Workouts"
   },
   "userMenu": {
     "label": "Account menu",
@@ -50,6 +52,89 @@
     "heading": "Dashboard",
     "greeting": "Hi, {{name}}. Ready to train?"
   },
+  "workoutsPage": {
+    "heading": "Workouts",
+    "description": "All your training sessions in one place.",
+    "loading": "Loading workouts",
+    "emptyHeading": "No workouts yet",
+    "emptyDescription": "Log your first session and it will show up here.",
+    "errorHeading": "Couldn't load your workouts",
+    "retry": "Try again",
+    "logWorkout": "Log workout"
+  },
+  "workoutDialog": {
+    "title": "Log a workout",
+    "close": "Close",
+    "sectionWhat": "What did you do?",
+    "sectionWhen": "When, and how long?",
+    "sectionHow": "How was it?",
+    "type": "Workout type",
+    "date": "Date",
+    "time": "Start time",
+    "duration": "Duration (min)",
+    "calories": "Calories (kcal)",
+    "difficulty": "Difficulty",
+    "difficultyWords": {
+      "1": "very easy",
+      "2": "easy",
+      "3": "light",
+      "4": "steady",
+      "5": "moderate",
+      "6": "challenging",
+      "7": "hard",
+      "8": "very hard",
+      "9": "brutal",
+      "10": "all out"
+    },
+    "fatigue": "Post-workout fatigue",
+    "fatigueWords": {
+      "1": "fresh",
+      "2": "relaxed",
+      "3": "fine",
+      "4": "a bit tired",
+      "5": "tired",
+      "6": "quite tired",
+      "7": "very tired",
+      "8": "exhausted",
+      "9": "drained",
+      "10": "wiped out"
+    },
+    "notes": "Notes",
+    "notesPlaceholder": "How did it go? Anything to remember next time?",
+    "save": "Save workout",
+    "cancel": "Cancel",
+    "saved": "Workout saved"
+  },
+  "workoutSummary": {
+    "dateFormat": "EEEE d MMMM, HH:mm",
+    "dateFormatWithYear": "EEEE d MMMM y, HH:mm",
+    "duration": {
+      "hours": "{{hours}}h",
+      "minutes": "{{minutes}}m",
+      "hoursMinutes": "{{hours}}h {{minutes}}m"
+    },
+    "kcal": "{{value}} kcal"
+  },
+  "workoutDetails": {
+    "difficulty": "Difficulty {{value}} of {{max}}",
+    "difficultyLabel": "Difficulty",
+    "fatigue": "Post-workout fatigue {{value}} of {{max}}",
+    "fatigueLabel": "Post-workout fatigue"
+  },
+  "workoutType": {
+    "cardio": {
+      "code": "CAR",
+      "name": "Cardio"
+    },
+    "strength": {
+      "code": "STR",
+      "name": "Strength"
+    },
+    "flexibility": {
+      "code": "FLX",
+      "name": "Flexibility"
+    }
+  },
   "notFoundPage": {
     "heading": "Page not found",
     "description": "The page you're looking for doesn't exist or has been moved.",
@@ -59,7 +144,11 @@
     "required": "This field is required",
     "email": "Enter a valid email address",
     "minLength": "Must be at least {{min}} characters",
-    "maxLength": "Must be at most {{max}} characters"
+    "maxLength": "Must be at most {{max}} characters",
+    "min": "Must be at least {{min}}",
+    "max": "Must be at most {{max}}",
+    "integer": "Enter a whole number",
+    "parse": "Enter a valid value"
   },
   "authErrors": {
     "invalidCredentials": "Wrong email or password.",
@@ -69,6 +158,11 @@
     "invalidPassword": "The password you entered isn't valid.",
     "invalidRequest": "Please check the form and try again.",
     "sessionExpired": "Your session has expired. Please sign in again.",
+    "network": "Can't reach the server. Check your connection and try again.",
+    "unexpected": "Something went wrong. Please try again."
+  },
+  "workoutsErrors": {
+    "invalidRequest": "Please check the form and try again.",
     "network": "Can't reach the server. Check your connection and try again.",
     "unexpected": "Something went wrong. Please try again."
   },

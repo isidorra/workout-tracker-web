@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, inject } from "@angular/core";
 import { MatButton } from "@angular/material/button";
 import { MatToolbar } from "@angular/material/toolbar";
-import { RouterLink } from "@angular/router";
+import { RouterLink, RouterLinkActive } from "@angular/router";
 import { TranslocoDirective } from "@jsverse/transloco";
 import { Store } from "@ngrx/store";
 import { authFeature } from "../../../auth/auth-feature";
@@ -16,6 +16,7 @@ import { UserMenu } from "../user-menu/user-menu";
     MatToolbar,
     MatButton,
     RouterLink,
+    RouterLinkActive,
     TranslocoDirective,
     Logo,
     ThemeToggler,
@@ -24,14 +25,14 @@ import { UserMenu } from "../user-menu/user-menu";
   ],
   selector: "app-navbar",
   styles: `
+    @use "@angular/material" as mat;
+
     mat-toolbar {
       position: sticky;
       top: 0;
       z-index: 5;
       height: 62px;
       padding: 0;
-
-      // The mockup's header sits on surface, not the toolbar default surface-container.
       background: var(--mat-sys-surface);
       border-bottom: 1px solid var(--app-line);
     }
@@ -46,15 +47,62 @@ import { UserMenu } from "../user-menu/user-menu";
       padding: 0 24px;
     }
 
-    app-logo {
-      // Push the actions right without stretching the link's clickable area across the gap.
+    .navbar__start {
+      display: flex;
+      align-items: center;
+      gap: 24px;
       margin-right: auto;
+    }
+
+    .navbar__links {
+      display: flex;
+      gap: 4px;
+
+      @include mat.button-overrides(
+        (
+          text-label-text-color: var(--mat-sys-on-surface-variant),
+        )
+      );
+    }
+
+    .navbar__link--active {
+      background: var(--mat-sys-surface-container);
+
+      @include mat.button-overrides(
+        (
+          text-label-text-color: var(--mat-sys-on-surface),
+        )
+      );
     }
   `,
   template: `
     <mat-toolbar>
       <div class="navbar__inner">
-        <app-logo />
+        <div class="navbar__start">
+          <app-logo />
+
+          @if (isAuthenticated()) {
+            <nav *transloco="let t; prefix: 'navbar'" class="navbar__links">
+              <a
+                matButton
+                routerLink="/"
+                routerLinkActive="navbar__link--active"
+                ariaCurrentWhenActive="page"
+                [routerLinkActiveOptions]="{ exact: true }"
+              >
+                {{ t("dashboard") }}
+              </a>
+              <a
+                matButton
+                routerLink="/workouts"
+                routerLinkActive="navbar__link--active"
+                ariaCurrentWhenActive="page"
+              >
+                {{ t("workouts") }}
+              </a>
+            </nav>
+          }
+        </div>
 
         @if (!isAuthenticated()) {
           <ng-container *transloco="let t; prefix: 'navbar'">
