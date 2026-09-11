@@ -58,6 +58,14 @@ import { Avatar } from "../../common/avatar/avatar";
       color: var(--mat-sys-on-surface-variant);
       font: var(--mat-sys-body-small);
     }
+
+    mat-divider {
+      @include mat.menu-overrides(
+        (
+          divider-bottom-spacing: 0,
+        )
+      );
+    }
   `,
   template: `
     @if (user(); as user) {

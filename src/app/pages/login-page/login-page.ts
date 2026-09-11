@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, inject, signal } from "@angular/core";
 import { FormField, FormRoot, form } from "@angular/forms/signals";
 import { MatButton } from "@angular/material/button";
-import { MatError, MatFormField, MatLabel } from "@angular/material/form-field";
+import { MatError, MatFormField, MatLabel, MatSuffix } from "@angular/material/form-field";
 import { MatInput } from "@angular/material/input";
 import { RouterLink } from "@angular/router";
 import { TranslocoDirective } from "@jsverse/transloco";
@@ -11,6 +11,7 @@ import { authFeature } from "../../auth/auth-feature";
 import { LoginRequest } from "../../auth/auth-models";
 import { loginSchema } from "../../auth/auth-schemas";
 import { FieldError } from "../../components/common/field-error/field-error";
+import { PasswordToggle } from "../../components/common/password-toggle/password-toggle";
 import { AuthCard } from "../../components/layout/auth-card/auth-card";
 
 @Component({
@@ -18,11 +19,13 @@ import { AuthCard } from "../../components/layout/auth-card/auth-card";
   imports: [
     AuthCard,
     FieldError,
+    PasswordToggle,
     FormField,
     FormRoot,
     MatFormField,
     MatLabel,
     MatError,
+    MatSuffix,
     MatInput,
     MatButton,
     RouterLink,
@@ -38,10 +41,7 @@ import { AuthCard } from "../../components/layout/auth-card/auth-card";
     form {
       display: flex;
       flex-direction: column;
-    }
-
-    button[type="submit"] {
-      margin-top: 8px;
+      gap: 8px;
     }
   `,
   template: `
@@ -63,10 +63,11 @@ import { AuthCard } from "../../components/layout/auth-card/auth-card";
           <mat-label>{{ t("password") }}</mat-label>
           <input
             matInput
-            type="password"
             autocomplete="current-password"
+            [type]="passwordToggle.type()"
             [formField]="loginForm.password"
           />
+          <app-password-toggle #passwordToggle matIconSuffix />
           @if (loginForm.password().errors()[0]; as error) {
             <mat-error><app-field-error [error]="error" /></mat-error>
           }

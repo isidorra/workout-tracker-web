@@ -56,9 +56,7 @@ import { UserMenu } from "../user-menu/user-menu";
       <div class="navbar__inner">
         <app-logo />
 
-        @if (isAuthenticated()) {
-          <app-user-menu />
-        } @else {
+        @if (!isAuthenticated()) {
           <ng-container *transloco="let t; prefix: 'navbar'">
             <a matButton routerLink="/login">{{ t("login") }}</a>
             <a matButton="filled" routerLink="/register">{{ t("register") }}</a>
@@ -66,6 +64,9 @@ import { UserMenu } from "../user-menu/user-menu";
         }
         <app-theme-toggler />
         <app-language-picker />
+        @if (isAuthenticated()) {
+          <app-user-menu />
+        }
       </div>
     </mat-toolbar>
   `,

@@ -17,6 +17,10 @@
   "languagePicker": {
     "label": "Promeni jezik"
   },
+  "passwordToggle": {
+    "show": "Prikaži lozinku",
+    "hide": "Sakrij lozinku"
+  },
   "loginPage": {
     "heading": "Zdravo opet",
     "description": "Prijavi se da beležiš treninge i pratiš svoj napredak.",

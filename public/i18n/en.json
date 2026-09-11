@@ -17,6 +17,10 @@
   "languagePicker": {
     "label": "Change language"
   },
+  "passwordToggle": {
+    "show": "Show password",
+    "hide": "Hide password"
+  },
   "loginPage": {
     "heading": "Welcome back",
     "description": "Sign in to log workouts and check your progress.",
