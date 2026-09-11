@@ -1,7 +1,7 @@
 import { Injectable, inject } from "@angular/core";
 import { Store } from "@ngrx/store";
 import { Observable, finalize, map, share, tap } from "rxjs";
-import { AuthActions } from "./auth-actions";
+import { AuthInterceptorActions } from "./auth-actions";
 import { AuthApi } from "./auth-api";
 
 /** Exchanges the refresh cookie for a new access token when the current one has expired. */
@@ -17,8 +17,9 @@ export class TokenRefresh {
     this.inFlight ??= this.api.refresh().pipe(
       map(({ accessToken }) => accessToken),
       tap({
-        next: (accessToken) => this.store.dispatch(AuthActions.tokenRefreshed({ accessToken })),
-        error: () => this.store.dispatch(AuthActions.sessionExpired()),
+        next: (accessToken) =>
+          this.store.dispatch(AuthInterceptorActions.tokenRefreshed({ accessToken })),
+        error: () => this.store.dispatch(AuthInterceptorActions.sessionExpired()),
       }),
       // Before share(), so the slot is cleared once per request rather than once per subscriber.
       finalize(() => (this.inFlight = null)),

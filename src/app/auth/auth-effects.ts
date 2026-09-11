@@ -5,7 +5,14 @@ import { Actions, createEffect, ofType } from "@ngrx/effects";
 import { mapResponse } from "@ngrx/operators";
 import { exhaustMap, filter, merge, of, switchMap, tap } from "rxjs";
 import { Toast } from "../toast/toast";
-import { AuthActions } from "./auth-actions";
+import {
+  AppActions,
+  AuthApiActions,
+  AuthInterceptorActions,
+  LoginPageActions,
+  RegisterPageActions,
+  UserMenuActions,
+} from "./auth-actions";
 import { AuthApi } from "./auth-api";
 import { toAuthErrorKey } from "./auth-errors";
 import { SessionHint } from "./session-hint";
@@ -16,21 +23,21 @@ import { SessionHint } from "./session-hint";
 export const restoreSession$ = createEffect(
   (actions$ = inject(Actions), api = inject(AuthApi), hint = inject(SessionHint)) =>
     actions$.pipe(
-      ofType(AuthActions.restoreSession),
+      ofType(AppActions.started),
       exhaustMap(() =>
         // A browser that never signed in has no cookie to refresh with, so skip the request.
         hint.has()
           ? api.refresh().pipe(
               mapResponse({
                 next: ({ accessToken }) =>
-                  AuthActions.authenticated({ accessToken, source: "restore" }),
+                  AuthApiActions.authenticated({ accessToken, source: "restore" }),
                 error: (error: unknown) =>
-                  AuthActions.restoreSessionFailure({
+                  AuthApiActions.restoreSessionFailure({
                     cookieRejected: error instanceof HttpErrorResponse && error.status === 401,
                   }),
               }),
             )
-          : of(AuthActions.restoreSessionFailure({ cookieRejected: false })),
+          : of(AuthApiActions.restoreSessionFailure({ cookieRejected: false })),
       ),
     ),
   { functional: true },
@@ -39,13 +46,14 @@ export const restoreSession$ = createEffect(
 export const login$ = createEffect(
   (actions$ = inject(Actions), api = inject(AuthApi)) =>
     actions$.pipe(
-      ofType(AuthActions.login),
+      ofType(LoginPageActions.submitted),
       exhaustMap(({ email, password }) =>
         api.login({ email, password }).pipe(
           mapResponse({
-            next: ({ accessToken }) => AuthActions.authenticated({ accessToken, source: "login" }),
+            next: ({ accessToken }) =>
+              AuthApiActions.authenticated({ accessToken, source: "login" }),
             error: (error: unknown) =>
-              AuthActions.loginFailure({ messageKey: toAuthErrorKey(error, "login") }),
+              AuthApiActions.loginFailure({ messageKey: toAuthErrorKey(error, "login") }),
           }),
         ),
       ),
@@ -56,14 +64,14 @@ export const login$ = createEffect(
 export const register$ = createEffect(
   (actions$ = inject(Actions), api = inject(AuthApi)) =>
     actions$.pipe(
-      ofType(AuthActions.register),
+      ofType(RegisterPageActions.submitted),
       exhaustMap(({ name, email, password }) =>
         api.register({ name, email, password }).pipe(
           mapResponse({
             next: ({ accessToken }) =>
-              AuthActions.authenticated({ accessToken, source: "register" }),
+              AuthApiActions.authenticated({ accessToken, source: "register" }),
             error: (error: unknown) =>
-              AuthActions.registerFailure({ messageKey: toAuthErrorKey(error, "register") }),
+              AuthApiActions.registerFailure({ messageKey: toAuthErrorKey(error, "register") }),
           }),
         ),
       ),
@@ -75,13 +83,13 @@ export const register$ = createEffect(
 export const loadCurrentUser$ = createEffect(
   (actions$ = inject(Actions), api = inject(AuthApi)) =>
     actions$.pipe(
-      ofType(AuthActions.authenticated),
+      ofType(AuthApiActions.authenticated),
       switchMap(({ source }) =>
         api.me().pipe(
           mapResponse({
-            next: (user) => AuthActions.loadCurrentUserSuccess({ user, source }),
+            next: (user) => AuthApiActions.loadCurrentUserSuccess({ user, source }),
             error: (error: unknown) =>
-              AuthActions.loadCurrentUserFailure({ messageKey: toAuthErrorKey(error, "me") }),
+              AuthApiActions.loadCurrentUserFailure({ messageKey: toAuthErrorKey(error, "me") }),
           }),
         ),
       ),
@@ -92,13 +100,13 @@ export const loadCurrentUser$ = createEffect(
 export const logout$ = createEffect(
   (actions$ = inject(Actions), api = inject(AuthApi)) =>
     actions$.pipe(
-      ofType(AuthActions.logout),
+      ofType(UserMenuActions.logoutClicked),
       exhaustMap(() =>
         api.logout().pipe(
           // The cookie is HttpOnly, so if the request fails, clearing local state is all we can do.
           mapResponse({
-            next: () => AuthActions.logoutSuccess(),
-            error: () => AuthActions.logoutSuccess(),
+            next: () => AuthApiActions.logoutSuccess(),
+            error: () => AuthApiActions.logoutSuccess(),
           }),
         ),
       ),
@@ -109,7 +117,7 @@ export const logout$ = createEffect(
 export const sessionEstablished$ = createEffect(
   (actions$ = inject(Actions), hint = inject(SessionHint), router = inject(Router)) =>
     actions$.pipe(
-      ofType(AuthActions.loadCurrentUserSuccess),
+      ofType(AuthApiActions.loadCurrentUserSuccess),
       tap(({ source }) => {
         hint.set();
 
@@ -127,14 +135,14 @@ export const clearSessionHint$ = createEffect(
     merge(
       actions$.pipe(
         ofType(
-          AuthActions.loadCurrentUserFailure,
-          AuthActions.sessionExpired,
-          AuthActions.logoutSuccess,
+          AuthApiActions.loadCurrentUserFailure,
+          AuthInterceptorActions.sessionExpired,
+          AuthApiActions.logoutSuccess,
         ),
       ),
       // An unreachable API at startup says nothing about the cookie, so the hint survives it.
       actions$.pipe(
-        ofType(AuthActions.restoreSessionFailure),
+        ofType(AuthApiActions.restoreSessionFailure),
         filter(({ cookieRejected }) => cookieRejected),
       ),
     ).pipe(tap(() => hint.clear())),
@@ -145,11 +153,11 @@ export const navigateAfterSignOut$ = createEffect(
   (actions$ = inject(Actions), router = inject(Router)) =>
     merge(
       actions$.pipe(
-        ofType(AuthActions.logoutSuccess),
+        ofType(AuthApiActions.logoutSuccess),
         tap(() => void router.navigateByUrl("/")),
       ),
       actions$.pipe(
-        ofType(AuthActions.sessionExpired),
+        ofType(AuthInterceptorActions.sessionExpired),
         tap(() => void router.navigateByUrl("/login")),
       ),
     ),
@@ -161,14 +169,14 @@ export const notifyFailure$ = createEffect(
     merge(
       actions$.pipe(
         ofType(
-          AuthActions.loginFailure,
-          AuthActions.registerFailure,
-          AuthActions.loadCurrentUserFailure,
+          AuthApiActions.loginFailure,
+          AuthApiActions.registerFailure,
+          AuthApiActions.loadCurrentUserFailure,
         ),
         tap(({ messageKey }) => toast.show(messageKey)),
       ),
       actions$.pipe(
-        ofType(AuthActions.sessionExpired),
+        ofType(AuthInterceptorActions.sessionExpired),
         tap(() => toast.show("authErrors.sessionExpired")),
       ),
     ),

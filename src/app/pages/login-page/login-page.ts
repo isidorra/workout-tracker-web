@@ -6,7 +6,7 @@ import { MatInput } from "@angular/material/input";
 import { RouterLink } from "@angular/router";
 import { TranslocoDirective } from "@jsverse/transloco";
 import { Store } from "@ngrx/store";
-import { AuthActions } from "../../auth/auth-actions";
+import { LoginPageActions } from "../../auth/auth-actions";
 import { authFeature } from "../../auth/auth-feature";
 import { LoginRequest } from "../../auth/auth-models";
 import { loginSchema } from "../../auth/auth-schemas";
@@ -94,7 +94,7 @@ export class LoginPage {
       // Only runs once every field is valid; submitting also marks all fields touched, which is
       // what reveals their errors.
       action: async () => {
-        this.store.dispatch(AuthActions.login(this.model()));
+        this.store.dispatch(LoginPageActions.submitted(this.model()));
       },
     },
   });

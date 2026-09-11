@@ -5,7 +5,7 @@ import { MatIcon } from "@angular/material/icon";
 import { MatMenu, MatMenuItem, MatMenuTrigger } from "@angular/material/menu";
 import { TranslocoDirective } from "@jsverse/transloco";
 import { Store } from "@ngrx/store";
-import { AuthActions } from "../../../auth/auth-actions";
+import { UserMenuActions } from "../../../auth/auth-actions";
 import { authFeature } from "../../../auth/auth-feature";
 import { Avatar } from "../../common/avatar/avatar";
 
@@ -103,6 +103,6 @@ export class UserMenu {
   protected readonly pending = this.store.selectSignal(authFeature.selectPending);
 
   protected logout(): void {
-    this.store.dispatch(AuthActions.logout());
+    this.store.dispatch(UserMenuActions.logoutClicked());
   }
 }

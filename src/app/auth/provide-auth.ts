@@ -7,7 +7,7 @@ import {
 import { provideEffects } from "@ngrx/effects";
 import { Store, provideState } from "@ngrx/store";
 import { filter, firstValueFrom, of, timeout } from "rxjs";
-import { AuthActions } from "./auth-actions";
+import { AppActions } from "./auth-actions";
 import * as authEffects from "./auth-effects";
 import { authFeature } from "./auth-feature";
 
@@ -32,7 +32,7 @@ export function provideAuth(): EnvironmentProviders {
         ),
       );
 
-      store.dispatch(AuthActions.restoreSession());
+      store.dispatch(AppActions.started());
 
       return settled;
     }),

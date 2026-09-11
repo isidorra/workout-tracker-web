@@ -1,5 +1,11 @@
 import { createFeature, createReducer, createSelector, on } from "@ngrx/store";
-import { AuthActions } from "./auth-actions";
+import {
+  AuthApiActions,
+  AuthInterceptorActions,
+  LoginPageActions,
+  RegisterPageActions,
+  UserMenuActions,
+} from "./auth-actions";
 import { AuthStatus, User } from "./auth-models";
 
 export interface AuthState {
@@ -25,31 +31,33 @@ export const authFeature = createFeature({
   name: "auth",
   reducer: createReducer(
     initialAuthState,
-    on(AuthActions.login, AuthActions.register, AuthActions.logout, (state): AuthState => ({
-      ...state,
-      pending: true,
-    })),
-    on(AuthActions.loginFailure, AuthActions.registerFailure, (state): AuthState => ({
+    on(
+      LoginPageActions.submitted,
+      RegisterPageActions.submitted,
+      UserMenuActions.logoutClicked,
+      (state): AuthState => ({ ...state, pending: true }),
+    ),
+    on(AuthApiActions.loginFailure, AuthApiActions.registerFailure, (state): AuthState => ({
       ...state,
       pending: false,
     })),
     // The status stays put until /me answers, so the UI never shows a signed-in state without a user.
     on(
-      AuthActions.authenticated,
-      AuthActions.tokenRefreshed,
+      AuthApiActions.authenticated,
+      AuthInterceptorActions.tokenRefreshed,
       (state, { accessToken }): AuthState => ({ ...state, accessToken }),
     ),
-    on(AuthActions.loadCurrentUserSuccess, (state, { user }): AuthState => ({
+    on(AuthApiActions.loadCurrentUserSuccess, (state, { user }): AuthState => ({
       ...state,
       status: "authenticated",
       user,
       pending: false,
     })),
     on(
-      AuthActions.restoreSessionFailure,
-      AuthActions.loadCurrentUserFailure,
-      AuthActions.sessionExpired,
-      AuthActions.logoutSuccess,
+      AuthApiActions.restoreSessionFailure,
+      AuthApiActions.loadCurrentUserFailure,
+      AuthInterceptorActions.sessionExpired,
+      AuthApiActions.logoutSuccess,
       (): AuthState => signedOut,
     ),
   ),
