@@ -133,6 +133,10 @@
     "flexibility": {
       "code": "FLE",
       "name": "Fleksibilnost"
+    },
+    "mixed": {
+      "code": "MES",
+      "name": "Mešovito"
     }
   },
   "notFoundPage": {

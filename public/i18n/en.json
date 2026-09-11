@@ -133,6 +133,10 @@
     "flexibility": {
       "code": "FLX",
       "name": "Flexibility"
+    },
+    "mixed": {
+      "code": "MIX",
+      "name": "Mixed"
     }
   },
   "notFoundPage": {

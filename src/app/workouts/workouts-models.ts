@@ -3,6 +3,7 @@ export const WorkoutType = {
   Cardio: 1,
   Strength: 2,
   Flexibility: 3,
+  Mixed: 4,
 } as const;
 
 export type WorkoutType = (typeof WorkoutType)[keyof typeof WorkoutType];
@@ -12,6 +13,7 @@ export const WORKOUT_TYPES: readonly WorkoutType[] = [
   WorkoutType.Cardio,
   WorkoutType.Strength,
   WorkoutType.Flexibility,
+  WorkoutType.Mixed,
 ];
 
 /** Sub-key of each type under the `workoutType` translation block. */
@@ -19,6 +21,7 @@ export const WORKOUT_TYPE_KEYS: Record<WorkoutType, string> = {
   [WorkoutType.Cardio]: "cardio",
   [WorkoutType.Strength]: "strength",
   [WorkoutType.Flexibility]: "flexibility",
+  [WorkoutType.Mixed]: "mixed",
 };
 
 // Mirror the API's WorkoutPolicy; difficulty and fatigue are rated on this scale.
