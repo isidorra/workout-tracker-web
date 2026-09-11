@@ -10,6 +10,7 @@ import { RegisterPageActions } from "../../auth/auth-actions";
 import { authFeature } from "../../auth/auth-feature";
 import { RegisterRequest } from "../../auth/auth-models";
 import { registerSchema } from "../../auth/auth-schemas";
+import { CapitalizeWords } from "../../components/common/capitalize-words/capitalize-words";
 import { FieldError } from "../../components/common/field-error/field-error";
 import { PasswordToggle } from "../../components/common/password-toggle/password-toggle";
 import { AuthCard } from "../../components/layout/auth-card/auth-card";
@@ -18,6 +19,7 @@ import { AuthCard } from "../../components/layout/auth-card/auth-card";
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [
     AuthCard,
+    CapitalizeWords,
     FieldError,
     PasswordToggle,
     FormField,
@@ -53,7 +55,7 @@ import { AuthCard } from "../../components/layout/auth-card/auth-card";
       <form [formRoot]="registerForm">
         <mat-form-field>
           <mat-label>{{ t("name") }}</mat-label>
-          <input matInput autocomplete="name" [formField]="registerForm.name" />
+          <input matInput appCapitalizeWords autocomplete="name" [formField]="registerForm.name" />
           @if (registerForm.name().errors()[0]; as error) {
             <mat-error><app-field-error [error]="error" /></mat-error>
           }
