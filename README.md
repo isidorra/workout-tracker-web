@@ -20,13 +20,13 @@ Standalone Angular, one feature folder per domain. Pages lazy-load. NgRx state i
 pages  →  features (store, effects, API)  →  /api
 ```
 
-| Folder | Role |
-| --- | --- |
-| `src/app/auth` | Session, guards, interceptor, token refresh |
-| `src/app/dashboard` | Week summary and monthly progress |
-| `src/app/workouts` | List, create, and the log-workout dialog |
-| `src/app/pages` | Routed screens |
-| `public/i18n` | `en.json` and `sr.json` |
+| Folder              | Role                                        |
+| ------------------- | ------------------------------------------- |
+| `src/app/auth`      | Session, guards, interceptor, token refresh |
+| `src/app/dashboard` | Week summary and monthly progress           |
+| `src/app/workouts`  | List, create, and the log-workout dialog    |
+| `src/app/pages`     | Routed screens                              |
+| `public/i18n`       | `en.json` and `sr.json`                     |
 
 ## Stack
 
