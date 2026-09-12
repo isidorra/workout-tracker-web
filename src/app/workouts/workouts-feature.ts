@@ -45,6 +45,13 @@ export const workoutsFeature = createFeature({
       status: "loading",
       errorKey: null,
     })),
+    on(WorkoutsApiActions.createWorkoutSuccess, (state): WorkoutsState => ({
+      ...state,
+      pending: false,
+      page: 1,
+      status: "loading",
+      errorKey: null,
+    })),
     on(WorkoutsPageActions.filterChanged, (state, { filterType }): WorkoutsState => ({
       ...state,
       type: filterType,
@@ -72,11 +79,6 @@ export const workoutsFeature = createFeature({
       errorKey: messageKey,
     })),
     on(WorkoutDialogActions.submitted, (state): WorkoutsState => ({ ...state, pending: true })),
-    on(WorkoutsApiActions.createWorkoutSuccess, (state): WorkoutsState => ({
-      ...state,
-      pending: false,
-      page: 1,
-    })),
     on(WorkoutsApiActions.createWorkoutFailure, (state): WorkoutsState => ({
       ...state,
       pending: false,

@@ -5,11 +5,11 @@ import { MatProgressSpinner } from "@angular/material/progress-spinner";
 import { TranslocoDirective, TranslocoPipe } from "@jsverse/transloco";
 import { Store } from "@ngrx/store";
 import { authFeature } from "../../../auth/auth-feature";
+import { Placeholder } from "../../../components/common/placeholder/placeholder";
+import { openWorkoutDialog } from "../../../components/workouts/workout-dialog";
 import { DashboardPageActions } from "../../../dashboard/dashboard-actions";
 import { dashboardFeature } from "../../../dashboard/dashboard-feature";
 import { isCurrentOrFutureMonth, shiftMonth } from "../../../dashboard/dashboard-models";
-import { openWorkoutDialog } from "../../workouts-page/workout-dialog";
-import { WorkoutsPlaceholder } from "../../workouts-page/workouts-placeholder";
 import { DashboardProgressCard } from "./dashboard-progress";
 import { DashboardToday } from "./dashboard-today";
 import { DashboardWeek } from "./dashboard-week";
@@ -24,8 +24,8 @@ import { DashboardWeek } from "./dashboard-week";
     MatButton,
     MatProgressSpinner,
     TranslocoDirective,
+    Placeholder,
     TranslocoPipe,
-    WorkoutsPlaceholder,
   ],
   selector: "app-dashboard",
   styles: `
@@ -90,7 +90,7 @@ import { DashboardWeek } from "./dashboard-week";
       padding: 56px 24px;
     }
 
-    app-workouts-placeholder {
+    app-placeholder {
       flex: 1;
       justify-content: center;
     }
@@ -129,7 +129,7 @@ import { DashboardWeek } from "./dashboard-week";
             </div>
           }
           @case ("error") {
-            <app-workouts-placeholder
+            <app-placeholder
               icon="error_outline"
               [heading]="t('errorHeading')"
               [description]="errorKey() | transloco"
@@ -142,7 +142,7 @@ import { DashboardWeek } from "./dashboard-week";
               >
                 {{ t("retry") }}
               </button>
-            </app-workouts-placeholder>
+            </app-placeholder>
           }
           @case ("ready") {
             @if (dashboard(); as dashboard) {

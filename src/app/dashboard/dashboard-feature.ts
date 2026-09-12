@@ -1,5 +1,6 @@
 import { createFeature, createReducer, createSelector, on } from "@ngrx/store";
 import { AuthApiActions, AuthInterceptorActions } from "../auth/auth-actions";
+import { WorkoutsApiActions } from "../workouts/workouts-actions";
 import { DashboardApiActions, DashboardPageActions } from "./dashboard-actions";
 import {
   DashboardProgress,
@@ -58,6 +59,13 @@ export const dashboardFeature = createFeature({
     })),
     on(DashboardPageActions.progressRetryClicked, (state): DashboardState => ({
       ...state,
+      progressStatus: "loading",
+      progressErrorKey: null,
+    })),
+    on(WorkoutsApiActions.createWorkoutSuccess, (state): DashboardState => ({
+      ...state,
+      status: "loading",
+      errorKey: null,
       progressStatus: "loading",
       progressErrorKey: null,
     })),

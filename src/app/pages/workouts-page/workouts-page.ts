@@ -6,14 +6,14 @@ import { MatIcon } from "@angular/material/icon";
 import { MatProgressSpinner } from "@angular/material/progress-spinner";
 import { TranslocoDirective, TranslocoPipe } from "@jsverse/transloco";
 import { Store } from "@ngrx/store";
+import { Placeholder } from "../../components/common/placeholder/placeholder";
+import { openWorkoutDialog } from "../../components/workouts/workout-dialog";
 import { WorkoutsPageActions } from "../../workouts/workouts-actions";
 import { workoutsFeature } from "../../workouts/workouts-feature";
 import { WORKOUT_TYPE_KEYS, WorkoutType } from "../../workouts/workouts-models";
-import { openWorkoutDialog } from "./workout-dialog";
 import { WorkoutList } from "./workout-list";
 import { WorkoutPager } from "./workout-pager";
 import { WorkoutTypeFilter } from "./workout-type-filter";
-import { WorkoutsPlaceholder } from "./workouts-placeholder";
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -26,8 +26,8 @@ import { WorkoutsPlaceholder } from "./workouts-placeholder";
     TranslocoPipe,
     WorkoutList,
     WorkoutPager,
+    Placeholder,
     WorkoutTypeFilter,
-    WorkoutsPlaceholder,
   ],
   selector: "app-workouts-page",
   styles: `
@@ -95,7 +95,7 @@ import { WorkoutsPlaceholder } from "./workouts-placeholder";
       overscroll-behavior: contain;
     }
 
-    app-workouts-placeholder {
+    app-placeholder {
       flex: 1;
       justify-content: center;
     }
@@ -149,7 +149,7 @@ import { WorkoutsPlaceholder } from "./workouts-placeholder";
             </div>
           }
           @case ("error") {
-            <app-workouts-placeholder
+            <app-placeholder
               icon="error_outline"
               [heading]="t('errorHeading')"
               [description]="errorKey() | transloco"
@@ -157,10 +157,10 @@ import { WorkoutsPlaceholder } from "./workouts-placeholder";
               <button matButton="outlined" type="button" class="workouts__action" (click)="retry()">
                 {{ t("retry") }}
               </button>
-            </app-workouts-placeholder>
+            </app-placeholder>
           }
           @case ("empty") {
-            <app-workouts-placeholder
+            <app-placeholder
               icon="fitness_center"
               [heading]="t('emptyHeading')"
               [description]="t('emptyDescription')"
@@ -174,10 +174,10 @@ import { WorkoutsPlaceholder } from "./workouts-placeholder";
                 <mat-icon>add</mat-icon>
                 {{ t("logWorkout") }}
               </button>
-            </app-workouts-placeholder>
+            </app-placeholder>
           }
           @case ("filterEmpty") {
-            <app-workouts-placeholder
+            <app-placeholder
               icon="fitness_center"
               [heading]="t('emptyFilterHeading', { type: (filterTypeNameKey() | transloco) })"
               [description]="
@@ -193,7 +193,7 @@ import { WorkoutsPlaceholder } from "./workouts-placeholder";
                 <mat-icon>add</mat-icon>
                 {{ t("logWorkout") }}
               </button>
-            </app-workouts-placeholder>
+            </app-placeholder>
           }
           @case ("list") {
             <app-workout-list [workouts]="workouts()" />

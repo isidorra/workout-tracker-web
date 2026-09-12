@@ -16,7 +16,6 @@ import { MatIcon } from "@angular/material/icon";
 import { MatInput } from "@angular/material/input";
 import { TranslocoDirective, TranslocoPipe } from "@jsverse/transloco";
 import { Store } from "@ngrx/store";
-import { FieldError } from "../../components/common/field-error/field-error";
 import { WorkoutDialogActions } from "../../workouts/workouts-actions";
 import { workoutsFeature } from "../../workouts/workouts-feature";
 import {
@@ -26,6 +25,7 @@ import {
   toWorkoutInput,
 } from "../../workouts/workouts-models";
 import { NOTES_MAX_LENGTH, workoutSchema } from "../../workouts/workouts-schemas";
+import { FieldError } from "../common/field-error/field-error";
 import { RatingPicker } from "./rating-picker";
 
 @Component({

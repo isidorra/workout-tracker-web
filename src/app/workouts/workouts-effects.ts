@@ -3,7 +3,7 @@ import { MatDialog } from "@angular/material/dialog";
 import { Actions, createEffect, ofType } from "@ngrx/effects";
 import { concatLatestFrom, mapResponse } from "@ngrx/operators";
 import { Store } from "@ngrx/store";
-import { exhaustMap, filter, map, switchMap, tap } from "rxjs";
+import { exhaustMap, filter, switchMap, tap } from "rxjs";
 import { Toast } from "../toast/toast";
 import { WorkoutDialogActions, WorkoutsApiActions, WorkoutsPageActions } from "./workouts-actions";
 import { WorkoutsApi } from "./workouts-api";
@@ -18,6 +18,7 @@ export const loadWorkouts$ = createEffect(
         WorkoutsPageActions.retryClicked,
         WorkoutsPageActions.filterChanged,
         WorkoutsPageActions.pageChanged,
+        WorkoutsApiActions.createWorkoutSuccess,
       ),
       concatLatestFrom(() => store.select(workoutsFeature.selectListQuery)),
       // Reopening the page while a load is in flight restarts it, so only the latest answer lands.
@@ -53,7 +54,7 @@ export const createWorkout$ = createEffect(
 );
 
 // The dialog only dispatches; closing it here keeps it free of API outcomes, the way the auth
-// effects navigate after a login. The list is refetched from page 1 of the current type filter.
+// effects navigate after a login. The list reloads from `createWorkoutSuccess` on page 1.
 export const workoutSaved$ = createEffect(
   (actions$ = inject(Actions), dialog = inject(MatDialog), toast = inject(Toast)) =>
     actions$.pipe(
@@ -64,15 +65,6 @@ export const workoutSaved$ = createEffect(
       }),
     ),
   { functional: true, dispatch: false },
-);
-
-export const refetchAfterCreate$ = createEffect(
-  (actions$ = inject(Actions)) =>
-    actions$.pipe(
-      ofType(WorkoutsApiActions.createWorkoutSuccess),
-      map(() => WorkoutsPageActions.retryClicked()),
-    ),
-  { functional: true },
 );
 
 export const notifyFailure$ = createEffect(

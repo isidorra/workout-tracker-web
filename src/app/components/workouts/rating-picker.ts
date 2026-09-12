@@ -6,8 +6,8 @@ import {
   MatButtonToggleGroup,
 } from "@angular/material/button-toggle";
 import { TranslocoPipe } from "@jsverse/transloco";
-import { FieldError } from "../../components/common/field-error/field-error";
 import { RATING_MAX, RATING_MIN } from "../../workouts/workouts-models";
+import { FieldError } from "../common/field-error/field-error";
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,

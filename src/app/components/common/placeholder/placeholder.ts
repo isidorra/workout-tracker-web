@@ -1,11 +1,11 @@
 import { ChangeDetectionStrategy, Component, input } from "@angular/core";
 import { MatIcon } from "@angular/material/icon";
 
-/** Stands in for the workout list when there is nothing to show. Projected content goes below. */
+/** Stands in when a list or panel has nothing to show. Projected content goes below. */
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [MatIcon],
-  selector: "app-workouts-placeholder",
+  selector: "app-placeholder",
   styles: `
     :host {
       display: flex;
@@ -15,7 +15,7 @@ import { MatIcon } from "@angular/material/icon";
       text-align: center;
     }
 
-    .workouts-placeholder__icon {
+    .placeholder__icon {
       display: flex;
       align-items: center;
       justify-content: center;
@@ -56,7 +56,7 @@ import { MatIcon } from "@angular/material/icon";
     }
   `,
   template: `
-    <div class="workouts-placeholder__icon">
+    <div class="placeholder__icon">
       <mat-icon>{{ icon() }}</mat-icon>
     </div>
     <h2>{{ heading() }}</h2>
@@ -64,7 +64,7 @@ import { MatIcon } from "@angular/material/icon";
     <ng-content />
   `,
 })
-export class WorkoutsPlaceholder {
+export class Placeholder {
   readonly icon = input.required<string>();
   readonly heading = input.required<string>();
   readonly description = input.required<string>();

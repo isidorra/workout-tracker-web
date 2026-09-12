@@ -7,8 +7,21 @@ import { provideWorkouts } from "./workouts/provide-workouts";
 export const routes: Routes = [
   {
     path: "",
-    providers: [provideDashboard(), provideWorkouts()],
-    loadComponent: () => import("./pages/home-page/home-page").then((m) => m.HomePage),
+    // Home opens the log-workout dialog, so both `/` and `/workouts` share this store.
+    providers: [provideWorkouts()],
+    children: [
+      {
+        path: "",
+        providers: [provideDashboard()],
+        loadComponent: () => import("./pages/home-page/home-page").then((m) => m.HomePage),
+      },
+      {
+        path: "workouts",
+        canActivate: [authGuard],
+        loadComponent: () =>
+          import("./pages/workouts-page/workouts-page").then((m) => m.WorkoutsPage),
+      },
+    ],
   },
   {
     path: "login",
@@ -19,12 +32,6 @@ export const routes: Routes = [
     path: "register",
     canActivate: [guestGuard],
     loadComponent: () => import("./pages/register-page/register-page").then((m) => m.RegisterPage),
-  },
-  {
-    path: "workouts",
-    canActivate: [authGuard],
-    loadChildren: () =>
-      import("./pages/workouts-page/workouts.routes").then((m) => m.workoutsRoutes),
   },
   {
     path: "**",

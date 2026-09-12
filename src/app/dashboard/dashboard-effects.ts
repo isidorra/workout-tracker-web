@@ -14,7 +14,11 @@ import { dashboardFeature } from "./dashboard-feature";
 export const loadDashboard$ = createEffect(
   (actions$ = inject(Actions), api = inject(DashboardApi)) =>
     actions$.pipe(
-      ofType(DashboardPageActions.opened, DashboardPageActions.retryClicked),
+      ofType(
+        DashboardPageActions.opened,
+        DashboardPageActions.retryClicked,
+        WorkoutsApiActions.createWorkoutSuccess,
+      ),
       // Reopening the page while a load is in flight restarts it, so only the latest answer lands.
       switchMap(() =>
         api.get(toLocalDateOnly()).pipe(
@@ -54,6 +58,11 @@ export const loadProgress$ = createEffect(
         filter(([[, progress]]) => progress === null),
         map(([, month]) => month),
       ),
+      actions$.pipe(
+        ofType(WorkoutsApiActions.createWorkoutSuccess),
+        concatLatestFrom(() => store.select(dashboardFeature.selectProgressMonth)),
+        map(([, month]) => month),
+      ),
     ).pipe(
       // A fast prev/next drops the in-flight month so only the latest weeks land.
       switchMap((month) =>
@@ -67,24 +76,6 @@ export const loadProgress$ = createEffect(
           }),
         ),
       ),
-    ),
-  { functional: true },
-);
-
-export const refetchAfterCreate$ = createEffect(
-  (actions$ = inject(Actions)) =>
-    actions$.pipe(
-      ofType(WorkoutsApiActions.createWorkoutSuccess),
-      map(() => DashboardPageActions.retryClicked()),
-    ),
-  { functional: true },
-);
-
-export const refetchProgressAfterCreate$ = createEffect(
-  (actions$ = inject(Actions)) =>
-    actions$.pipe(
-      ofType(WorkoutsApiActions.createWorkoutSuccess),
-      map(() => DashboardPageActions.progressRetryClicked()),
     ),
   { functional: true },
 );
