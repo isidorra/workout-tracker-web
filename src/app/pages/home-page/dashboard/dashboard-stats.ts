@@ -38,6 +38,23 @@ import { RATING_MAX } from "../../../workouts/workouts-models";
       line-height: 1;
     }
 
+    // Darker in light mode so the lime and gold stay readable on white.
+    .dashboard-stats__stat--time .dashboard-stats__value {
+      color: light-dark(#0e7490, #5eead4);
+    }
+
+    .dashboard-stats__stat--count .dashboard-stats__value {
+      color: light-dark(#4e6700, #c3f53c);
+    }
+
+    .dashboard-stats__stat--difficulty .dashboard-stats__value {
+      color: light-dark(#8a5a00, #f5c542);
+    }
+
+    .dashboard-stats__stat--fatigue .dashboard-stats__value {
+      color: var(--app-heat);
+    }
+
     .dashboard-stats__label {
       color: var(--mat-sys-on-surface-variant);
       font: var(--mat-sys-body-medium);
@@ -45,19 +62,19 @@ import { RATING_MAX } from "../../../workouts/workouts-models";
   `,
   template: `
     <ng-container *transloco="let t; prefix: 'dashboard'">
-      <div class="dashboard-stats__stat">
+      <div class="dashboard-stats__stat dashboard-stats__stat--time">
         <span class="dashboard-stats__value">
           {{ duration().key | transloco: duration().params }}
         </span>
         <span class="dashboard-stats__label">{{ t("timeTrained") }}</span>
       </div>
 
-      <div class="dashboard-stats__stat">
+      <div class="dashboard-stats__stat dashboard-stats__stat--count">
         <span class="dashboard-stats__value">{{ stats().workoutCount }}</span>
         <span class="dashboard-stats__label">{{ t("workoutsDone") }}</span>
       </div>
 
-      <div class="dashboard-stats__stat">
+      <div class="dashboard-stats__stat dashboard-stats__stat--difficulty">
         <span class="dashboard-stats__value">
           @if (stats().averageDifficulty; as difficulty) {
             {{ t("rating", { value: (difficulty | number: "1.1-1" : locale()), max: ratingMax }) }}
@@ -68,7 +85,7 @@ import { RATING_MAX } from "../../../workouts/workouts-models";
         <span class="dashboard-stats__label">{{ t("avgDifficulty") }}</span>
       </div>
 
-      <div class="dashboard-stats__stat">
+      <div class="dashboard-stats__stat dashboard-stats__stat--fatigue">
         <span class="dashboard-stats__value">
           @if (stats().averageFatigue; as fatigue) {
             {{ t("rating", { value: (fatigue | number: "1.1-1" : locale()), max: ratingMax }) }}
