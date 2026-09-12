@@ -50,7 +50,37 @@
   },
   "dashboard": {
     "heading": "Dashboard",
-    "greeting": "Hi, {{name}}. Ready to train?"
+    "greeting": "Hi, {{name}}. Ready to train?",
+    "loading": "Loading dashboard",
+    "errorHeading": "Couldn't load your dashboard",
+    "retry": "Try again",
+    "todayDateFormat": "EEEE, d MMMM",
+    "todayDateFormatWithYear": "EEEE, d MMMM y",
+    "loggedToday": "Logged today",
+    "nothingLoggedToday": "Nothing logged today",
+    "lastWorkout": "Last workout: {{type}}, {{duration}}, {{when}}.",
+    "noLastWorkout": "Log your first session and it will show up here.",
+    "weekHeading": "This week so far",
+    "weekRange": "{{start}} – {{end}}",
+    "weekDayFormat": "EEE d MMM",
+    "weekDayFormatWithYear": "EEE d MMM y",
+    "seeAllWorkouts": "See all workouts",
+    "timeTrained": "Time trained",
+    "workoutsDone": "Workouts done",
+    "avgDifficulty": "Avg difficulty",
+    "avgFatigue": "Avg fatigue",
+    "rating": "{{value}}/{{max}}",
+    "ratingEmpty": "—",
+    "progressHeading": "Progress",
+    "progressLoading": "Loading progress",
+    "previousMonth": "Previous month",
+    "nextMonth": "Next month",
+    "monthFormat": "MMMM y"
+  },
+  "dashboardErrors": {
+    "invalidRequest": "Please check the form and try again.",
+    "network": "Can't reach the server. Check your connection and try again.",
+    "unexpected": "Something went wrong. Please try again."
   },
   "workoutsPage": {
     "heading": "Workouts",

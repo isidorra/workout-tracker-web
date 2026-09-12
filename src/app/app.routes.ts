@@ -1,10 +1,13 @@
 import { Routes } from "@angular/router";
 import { authGuard } from "./auth/auth-guard";
 import { guestGuard } from "./auth/guest-guard";
+import { provideDashboard } from "./dashboard/provide-dashboard";
+import { provideWorkouts } from "./workouts/provide-workouts";
 
 export const routes: Routes = [
   {
     path: "",
+    providers: [provideDashboard(), provideWorkouts()],
     loadComponent: () => import("./pages/home-page/home-page").then((m) => m.HomePage),
   },
   {

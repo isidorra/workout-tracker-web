@@ -50,7 +50,37 @@
   },
   "dashboard": {
     "heading": "Kontrolna tabla",
-    "greeting": "Zdravo, {{name}}. Vreme je za trening."
+    "greeting": "Zdravo, {{name}}. Vreme je za trening.",
+    "loading": "Učitavanje kontrolne table",
+    "errorHeading": "Učitavanje kontrolne table nije uspelo",
+    "retry": "Pokušaj ponovo",
+    "todayDateFormat": "EEEE, d. MMMM",
+    "todayDateFormatWithYear": "EEEE, d. MMMM y",
+    "loggedToday": "Zabeleženo danas",
+    "nothingLoggedToday": "Ništa nije zabeleženo danas",
+    "lastWorkout": "Poslednji trening: {{type}}, {{duration}}, {{when}}.",
+    "noLastWorkout": "Zabeleži prvi trening i pojaviće se ovde.",
+    "weekHeading": "Ova nedelja do sada",
+    "weekRange": "{{start}} – {{end}}",
+    "weekDayFormat": "EEE d. MMM",
+    "weekDayFormatWithYear": "EEE d. MMM y",
+    "seeAllWorkouts": "Pogledaj sve treninge",
+    "timeTrained": "Vreme treninga",
+    "workoutsDone": "Odrađeni treninzi",
+    "avgDifficulty": "Prosečna težina",
+    "avgFatigue": "Prosečan umor",
+    "rating": "{{value}}/{{max}}",
+    "ratingEmpty": "—",
+    "progressHeading": "Napredak",
+    "progressLoading": "Učitavanje napretka",
+    "previousMonth": "Prethodni mesec",
+    "nextMonth": "Sledeći mesec",
+    "monthFormat": "MMMM y"
+  },
+  "dashboardErrors": {
+    "invalidRequest": "Proveri unete podatke i pokušaj ponovo.",
+    "network": "Server nije dostupan. Proveri vezu i pokušaj ponovo.",
+    "unexpected": "Nešto je pošlo naopako. Pokušaj ponovo."
   },
   "workoutsPage": {
     "heading": "Treninzi",
