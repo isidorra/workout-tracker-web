@@ -43,10 +43,16 @@
     "footerLink": "Sign in"
   },
   "landing": {
-    "heading": "Track every workout",
-    "description": "Log your sessions and follow your progress week after week.",
+    "kicker": "Your training, logged",
+    "heading": "Track every workout. See your progress.",
+    "description": "Log what you did, how long it took, and how it felt. Build a history you can actually read: every session, the time you put in, and how hard it was.",
     "register": "Get started",
-    "login": "Sign in"
+    "login": "Sign in",
+    "previewBadge": "Preview",
+    "previewHeading": "This week so far",
+    "weekRange": "{{start}} – {{end}}",
+    "weekDayFormat": "EEE d MMM",
+    "weekDayFormatWithYear": "EEE d MMM y"
   },
   "dashboard": {
     "heading": "Dashboard",

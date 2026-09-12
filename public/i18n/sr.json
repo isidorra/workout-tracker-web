@@ -43,10 +43,16 @@
     "footerLink": "Prijavi se"
   },
   "landing": {
-    "heading": "Zabeleži svaki trening",
-    "description": "Beleži treninge i prati svoj napredak iz nedelje u nedelju.",
+    "kicker": "Tvoji treninzi, zabeleženi",
+    "heading": "Zabeleži svaki trening. Prati svoj napredak.",
+    "description": "Upiši šta si radio, koliko je trajalo i kako si se osećao. Napravi istoriju koju možeš da čitaš: svaka sesija, vreme koje si uložio i koliko je bilo teško.",
     "register": "Počni odmah",
-    "login": "Prijavi se"
+    "login": "Prijavi se",
+    "previewBadge": "Pregled",
+    "previewHeading": "Ova nedelja do sada",
+    "weekRange": "{{start}} – {{end}}",
+    "weekDayFormat": "EEE d. MMM",
+    "weekDayFormatWithYear": "EEE d. MMM y"
   },
   "dashboard": {
     "heading": "Kontrolna tabla",
