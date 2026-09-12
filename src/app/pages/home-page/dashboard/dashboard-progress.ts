@@ -104,6 +104,25 @@ import { DashboardStats } from "./dashboard-stats";
       color: var(--mat-sys-on-surface-variant);
       font: var(--mat-sys-title-medium);
     }
+
+    @media (max-width: 599px) {
+      mat-card {
+        padding: 16px;
+      }
+
+      .dashboard-progress__header {
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      .dashboard-progress__month {
+        justify-content: space-between;
+      }
+
+      h2 {
+        font-size: 22px;
+      }
+    }
   `,
   template: `
     <mat-card appearance="outlined" *transloco="let t; prefix: 'dashboard'">

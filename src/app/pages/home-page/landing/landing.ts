@@ -62,7 +62,13 @@ function currentWeekBounds(now = new Date()): { weekStart: string; weekEnd: stri
     }
 
     .landing__copy {
-      width: 80%;
+      width: 100%;
+    }
+
+    @media (min-width: 720px) {
+      .landing__copy {
+        width: 80%;
+      }
     }
 
     .landing__kicker {
@@ -79,9 +85,10 @@ function currentWeekBounds(now = new Date()): { weekStart: string; weekEnd: stri
     h1 {
       margin: 0 0 20px;
       font-family: var(--app-font-condensed);
-      font-size: clamp(56px, 11vw, 104px);
+      font-size: clamp(40px, 11vw, 104px);
       font-weight: 700;
       line-height: 0.88;
+      overflow-wrap: anywhere;
       text-transform: uppercase;
     }
 
@@ -106,6 +113,21 @@ function currentWeekBounds(now = new Date()): { weekStart: string; weekEnd: stri
       width: 100%;
       padding: 24px 28px;
       text-align: left;
+    }
+
+    @media (max-width: 599px) {
+      .landing {
+        gap: 32px;
+      }
+
+      .landing__actions {
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      mat-card {
+        padding: 16px;
+      }
     }
 
     .landing__preview-header {
@@ -134,7 +156,7 @@ function currentWeekBounds(now = new Date()): { weekStart: string; weekEnd: stri
     h2 {
       margin: 0 0 8px;
       font-family: var(--app-font-condensed);
-      font-size: 28px;
+      font-size: clamp(22px, 6vw, 28px);
       font-weight: 700;
       line-height: 1;
       text-transform: uppercase;
@@ -148,13 +170,8 @@ function currentWeekBounds(now = new Date()): { weekStart: string; weekEnd: stri
 
     .landing__stats {
       display: grid;
-      grid-template-columns: repeat(4, minmax(0, 1fr));
-      gap: 0;
-    }
-
-    .landing__stat + .landing__stat {
-      border-left: 1px solid var(--app-line);
-      padding-left: 24px;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 24px 16px;
     }
 
     .landing__value {
@@ -166,11 +183,19 @@ function currentWeekBounds(now = new Date()): { weekStart: string; weekEnd: stri
       line-height: 1;
     }
 
-    @media (max-width: 599px) {
-      .landing__stat + .landing__stat {
-        padding-left: 12px;
+    @media (min-width: 720px) {
+      .landing__stats {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 0;
       }
 
+      .landing__stat + .landing__stat {
+        border-left: 1px solid var(--app-line);
+        padding-left: 24px;
+      }
+    }
+
+    @media (max-width: 599px) {
       .landing__value {
         font-size: 22px;
       }

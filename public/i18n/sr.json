@@ -3,7 +3,8 @@
     "login": "Prijava",
     "register": "Registracija",
     "dashboard": "Kontrolna tabla",
-    "workouts": "Treninzi"
+    "workouts": "Treninzi",
+    "menu": "Otvori meni"
   },
   "userMenu": {
     "label": "Meni naloga",

@@ -55,6 +55,12 @@ import { WorkoutSummary } from "./workout-summary";
     mat-expansion-panel-header {
       padding: 14px 24px;
     }
+
+    @media (max-width: 599px) {
+      mat-expansion-panel-header {
+        padding: 12px 12px 12px 16px;
+      }
+    }
   `,
   // Flat mode keeps an open row flush with its neighbours instead of spacing it out. The details
   // template renders on first open only.

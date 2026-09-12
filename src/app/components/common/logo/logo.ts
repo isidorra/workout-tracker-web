@@ -22,6 +22,7 @@ import { TranslocoDirective } from "@jsverse/transloco";
       font-weight: 700;
       letter-spacing: 0.06em;
       text-transform: uppercase;
+      white-space: nowrap;
     }
 
     .logo__mark {

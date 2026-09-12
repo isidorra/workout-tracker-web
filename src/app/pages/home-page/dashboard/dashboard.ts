@@ -8,7 +8,7 @@ import { authFeature } from "../../../auth/auth-feature";
 import { DashboardPageActions } from "../../../dashboard/dashboard-actions";
 import { dashboardFeature } from "../../../dashboard/dashboard-feature";
 import { isCurrentOrFutureMonth, shiftMonth } from "../../../dashboard/dashboard-models";
-import { WorkoutDialog } from "../../workouts-page/workout-dialog";
+import { openWorkoutDialog } from "../../workouts-page/workout-dialog";
 import { WorkoutsPlaceholder } from "../../workouts-page/workouts-placeholder";
 import { DashboardProgressCard } from "./dashboard-progress";
 import { DashboardToday } from "./dashboard-today";
@@ -55,7 +55,7 @@ import { DashboardWeek } from "./dashboard-week";
     h1 {
       margin: 0 0 8px;
       font-family: var(--app-font-condensed);
-      font-size: 36px;
+      font-size: clamp(28px, 8vw, 36px);
       font-weight: 700;
       line-height: 1;
       text-transform: uppercase;
@@ -79,6 +79,7 @@ import { DashboardWeek } from "./dashboard-week";
       flex: 1;
       min-height: 0;
       overflow: auto;
+      overscroll-behavior: contain;
     }
 
     .dashboard__loading {
@@ -102,6 +103,12 @@ import { DashboardWeek } from "./dashboard-week";
 
     .dashboard__action {
       margin-top: 24px;
+    }
+
+    @media (max-width: 599px) {
+      .dashboard__header {
+        margin-bottom: 16px;
+      }
     }
   `,
   template: `
@@ -200,12 +207,6 @@ export class Dashboard {
   }
 
   protected openDialog(): void {
-    this.dialog.open(WorkoutDialog, {
-      width: "680px",
-      maxWidth: "calc(100vw - 32px)",
-      // The dialog itself rather than its first tabbable element, which is the close button; screen
-      // readers then start from the title.
-      autoFocus: "dialog",
-    });
+    openWorkoutDialog(this.dialog);
   }
 }

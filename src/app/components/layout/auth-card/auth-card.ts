@@ -58,6 +58,12 @@ import { Logo } from "../../common/logo/logo";
     @media (max-width: 480px) {
       :host {
         --auth-card-gutter: 20px;
+
+        @include mat.card-overrides(
+          (
+            title-text-size: 28px,
+          )
+        );
       }
     }
 

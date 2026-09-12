@@ -57,6 +57,7 @@ import { Avatar } from "../../common/avatar/avatar";
     .user-menu__email {
       color: var(--mat-sys-on-surface-variant);
       font: var(--mat-sys-body-small);
+      overflow-wrap: anywhere;
     }
 
     mat-divider {

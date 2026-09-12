@@ -41,7 +41,7 @@ import { TranslocoDirective } from "@jsverse/transloco";
     h1 {
       margin: 0 0 8px;
       font-family: var(--app-font-condensed);
-      font-size: 36px;
+      font-size: clamp(28px, 8vw, 36px);
       font-weight: 700;
       line-height: 1;
       text-transform: uppercase;

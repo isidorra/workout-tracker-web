@@ -55,6 +55,21 @@ import { WORKOUT_TYPE_KEYS } from "../../../workouts/workouts-models";
       color: var(--mat-sys-on-surface-variant);
       font: var(--mat-sys-body-large);
     }
+
+    @media (max-width: 599px) {
+      mat-card {
+        padding: 16px;
+      }
+
+      .dashboard-today__header {
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      h2 {
+        font-size: 22px;
+      }
+    }
   `,
   template: `
     <mat-card appearance="outlined" *transloco="let t; prefix: 'dashboard'">

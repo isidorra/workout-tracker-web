@@ -89,6 +89,24 @@ import { WORKOUT_TYPE_KEYS, Workout } from "../../workouts/workouts-models";
       width: 1px;
       background: var(--app-line);
     }
+
+    @media (max-width: 599px) {
+      :host {
+        flex-wrap: wrap;
+        gap: 8px 12px;
+      }
+
+      .workout-summary__stats {
+        flex-basis: 100%;
+        justify-content: flex-start;
+        gap: 12px;
+        margin: 0 0 0 54px;
+      }
+
+      .workout-summary__stat {
+        font-size: 16px;
+      }
+    }
   `,
   // The badge repeats the type name as a code, so screen readers skip it. DatePipe reads a date-time
   // without an offset as local time, so `performedAt` shows exactly the time the user entered.

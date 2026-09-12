@@ -25,6 +25,12 @@ import { Navbar } from "./components/layout/navbar/navbar";
       padding: 24px;
       overflow: auto;
     }
+
+    @media (max-width: 599px) {
+      main {
+        padding: 16px;
+      }
+    }
   `,
   template: `
     <app-navbar />

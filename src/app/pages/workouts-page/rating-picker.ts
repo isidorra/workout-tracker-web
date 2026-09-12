@@ -65,6 +65,16 @@ import { RATING_MAX, RATING_MIN } from "../../workouts/workouts-models";
       min-width: 0;
     }
 
+    @media (max-width: 599px) {
+      :host {
+        @include mat.button-toggle-overrides(
+          (
+            label-text-size: 14px,
+          )
+        );
+      }
+    }
+
     .rating-picker__error {
       margin: 6px 0 0;
       color: var(--mat-sys-error);

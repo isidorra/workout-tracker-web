@@ -9,7 +9,7 @@ import { Store } from "@ngrx/store";
 import { WorkoutsPageActions } from "../../workouts/workouts-actions";
 import { workoutsFeature } from "../../workouts/workouts-feature";
 import { WORKOUT_TYPE_KEYS, WorkoutType } from "../../workouts/workouts-models";
-import { WorkoutDialog } from "./workout-dialog";
+import { openWorkoutDialog } from "./workout-dialog";
 import { WorkoutList } from "./workout-list";
 import { WorkoutPager } from "./workout-pager";
 import { WorkoutTypeFilter } from "./workout-type-filter";
@@ -57,7 +57,7 @@ import { WorkoutsPlaceholder } from "./workouts-placeholder";
     h1 {
       margin: 0 0 8px;
       font-family: var(--app-font-condensed);
-      font-size: 36px;
+      font-size: clamp(28px, 8vw, 36px);
       font-weight: 700;
       line-height: 1;
       text-transform: uppercase;
@@ -92,6 +92,7 @@ import { WorkoutsPlaceholder } from "./workouts-placeholder";
       flex: 1;
       min-height: 0;
       overflow: auto;
+      overscroll-behavior: contain;
     }
 
     app-workouts-placeholder {
@@ -109,6 +110,14 @@ import { WorkoutsPlaceholder } from "./workouts-placeholder";
 
     .workouts__action {
       margin-top: 24px;
+    }
+
+    @media (max-width: 599px) {
+      .workouts__header {
+        flex-direction: column;
+        align-items: stretch;
+        margin-bottom: 16px;
+      }
     }
   `,
   template: `
@@ -249,12 +258,6 @@ export class WorkoutsPage {
   }
 
   protected openDialog(): void {
-    this.dialog.open(WorkoutDialog, {
-      width: "680px",
-      maxWidth: "calc(100vw - 32px)",
-      // The dialog itself rather than its first tabbable element, which is the close button; screen
-      // readers then start from the title.
-      autoFocus: "dialog",
-    });
+    openWorkoutDialog(this.dialog);
   }
 }

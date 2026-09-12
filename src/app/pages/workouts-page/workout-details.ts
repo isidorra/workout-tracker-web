@@ -21,7 +21,7 @@ import { RATING_MAX, Workout } from "../../workouts/workouts-models";
 
     .workout-details__stats {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(min(180px, 100%), 1fr));
       gap: 20px 32px;
     }
 

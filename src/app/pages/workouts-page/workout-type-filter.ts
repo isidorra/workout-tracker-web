@@ -9,6 +9,8 @@ import { WORKOUT_TYPES, WORKOUT_TYPE_KEYS, WorkoutType } from "../../workouts/wo
   imports: [MatButton, TranslocoDirective, TranslocoPipe],
   selector: "app-workout-type-filter",
   styles: `
+    @use "@angular/material" as mat;
+
     :host {
       display: block;
       margin-bottom: 16px;
@@ -18,6 +20,25 @@ import { WORKOUT_TYPES, WORKOUT_TYPE_KEYS, WorkoutType } from "../../workouts/wo
       display: flex;
       flex-wrap: wrap;
       gap: 8px;
+    }
+
+    @media (max-width: 599px) {
+      :host {
+        @include mat.button-overrides(
+          (
+            filled-container-height: 32px,
+            outlined-container-height: 32px,
+            filled-horizontal-padding: 12px,
+            outlined-horizontal-padding: 12px,
+            filled-label-text-size: 0.8125rem,
+            outlined-label-text-size: 0.8125rem,
+          )
+        );
+      }
+
+      [role="radiogroup"] {
+        gap: 6px;
+      }
     }
   `,
   template: `

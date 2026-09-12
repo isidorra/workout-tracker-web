@@ -36,10 +36,16 @@ import { MatIcon } from "@angular/material/icon";
     h2 {
       margin: 0 0 8px;
       font-family: var(--app-font-condensed);
-      font-size: 28px;
+      font-size: clamp(22px, 6vw, 28px);
       font-weight: 700;
       line-height: 1;
       text-transform: uppercase;
+    }
+
+    @media (max-width: 599px) {
+      :host {
+        padding: 32px 16px;
+      }
     }
 
     p {

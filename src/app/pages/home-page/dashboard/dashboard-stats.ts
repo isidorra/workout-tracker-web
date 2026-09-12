@@ -38,6 +38,16 @@ import { RATING_MAX } from "../../../workouts/workouts-models";
       line-height: 1;
     }
 
+    @media (max-width: 599px) {
+      :host {
+        gap: 20px 12px;
+      }
+
+      .dashboard-stats__value {
+        font-size: 22px;
+      }
+    }
+
     // Darker in light mode so the lime and gold stay readable on white.
     .dashboard-stats__stat--time .dashboard-stats__value {
       color: light-dark(#0e7490, #5eead4);

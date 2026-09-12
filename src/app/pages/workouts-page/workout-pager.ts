@@ -17,6 +17,12 @@ import { TranslocoDirective } from "@jsverse/transloco";
       margin-top: 16px;
     }
 
+    @media (max-width: 599px) {
+      :host {
+        gap: 8px 12px;
+      }
+    }
+
     .workout-pager__status {
       margin: 0;
       color: var(--mat-sys-on-surface-variant);

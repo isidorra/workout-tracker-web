@@ -4,9 +4,11 @@ import { FormField, FormRoot, form } from "@angular/forms/signals";
 import { MatButton, MatIconButton } from "@angular/material/button";
 import { MatButtonToggle, MatButtonToggleGroup } from "@angular/material/button-toggle";
 import {
+  MatDialog,
   MatDialogActions,
   MatDialogClose,
   MatDialogContent,
+  MatDialogRef,
   MatDialogTitle,
 } from "@angular/material/dialog";
 import { MatError, MatFormField, MatHint, MatLabel } from "@angular/material/form-field";
@@ -58,6 +60,10 @@ import { RatingPicker } from "./rating-picker";
     :host {
       --workout-dialog-gutter: 40px;
 
+      display: flex;
+      flex-direction: column;
+      max-height: 100%;
+
       @include mat.dialog-overrides(
         (
           subhead-font: var(--app-font-condensed),
@@ -72,9 +78,22 @@ import { RatingPicker } from "./rating-picker";
       );
     }
 
+    form {
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+      min-height: 0;
+    }
+
     @media (max-width: 599px) {
       :host {
         --workout-dialog-gutter: 20px;
+
+        @include mat.dialog-overrides(
+          (
+            subhead-size: 22px,
+          )
+        );
       }
     }
 
@@ -141,8 +160,17 @@ import { RatingPicker } from "./rating-picker";
     }
 
     @media (max-width: 599px) {
+      .workout-dialog__types {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+      }
+
       .workout-dialog__fields {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
+        grid-template-columns: 1fr;
+      }
+
+      .workout-dialog__actions {
+        flex-wrap: wrap;
       }
     }
 
@@ -327,5 +355,23 @@ export class WorkoutDialog {
         );
       },
     },
+  });
+}
+
+const HANDSET_QUERY = "(max-width: 599.98px)";
+
+/** Opens the log-workout dialog full-screen on phones, centered on larger viewports. */
+export function openWorkoutDialog(dialog: MatDialog): MatDialogRef<WorkoutDialog> {
+  const handset = matchMedia(HANDSET_QUERY).matches;
+
+  return dialog.open(WorkoutDialog, {
+    width: handset ? "100vw" : "680px",
+    maxWidth: handset ? "100vw" : "calc(100vw - 32px)",
+    height: handset ? "100dvh" : undefined,
+    maxHeight: handset ? "100dvh" : undefined,
+    panelClass: handset ? "workout-dialog-pane--full" : "",
+    // The dialog itself rather than its first tabbable element, which is the close button; screen
+    // readers then start from the title.
+    autoFocus: "dialog",
   });
 }
