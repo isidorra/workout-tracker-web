@@ -96,12 +96,7 @@ export const dashboardFeature = createFeature({
       (): DashboardState => initialDashboardState,
     ),
   ),
-  extraSelectors: ({
-    selectDashboard,
-    selectStatus,
-    selectProgress,
-    selectProgressStatus,
-  }) => ({
+  extraSelectors: ({ selectDashboard, selectStatus, selectProgress, selectProgressStatus }) => ({
     selectView: createSelector(
       selectDashboard,
       selectStatus,

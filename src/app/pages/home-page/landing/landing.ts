@@ -34,7 +34,15 @@ function currentWeekBounds(now = new Date()): { weekStart: string; weekEnd: stri
 /** What signed-out visitors see at `/`. */
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [DatePipe, DecimalPipe, MatButton, MatCard, RouterLink, TranslocoDirective, TranslocoPipe],
+  imports: [
+    DatePipe,
+    DecimalPipe,
+    MatButton,
+    MatCard,
+    RouterLink,
+    TranslocoDirective,
+    TranslocoPipe,
+  ],
   selector: "app-landing",
   styles: `
     @use "@angular/material" as mat;

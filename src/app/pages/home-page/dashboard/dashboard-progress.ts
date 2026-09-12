@@ -179,14 +179,16 @@ import { DashboardStats } from "./dashboard-stats";
                       t("weekRange", {
                         start:
                           (toLocalDateTime(week.weekStart)
-                          | date: t(weekDayFormatKey(week.weekStart, week.weekEnd))
-                          : undefined
-                          : locale()),
+                          | date
+                            : t(weekDayFormatKey(week.weekStart, week.weekEnd))
+                            : undefined
+                            : locale()),
                         end:
                           (toLocalDateTime(week.weekEnd)
-                          | date: t(weekDayFormatKey(week.weekStart, week.weekEnd))
-                          : undefined
-                          : locale()),
+                          | date
+                            : t(weekDayFormatKey(week.weekStart, week.weekEnd))
+                            : undefined
+                            : locale()),
                       })
                     }}
                   </p>

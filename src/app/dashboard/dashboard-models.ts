@@ -64,7 +64,9 @@ export function shiftMonth(current: ProgressMonth, delta: number): ProgressMonth
 export function isCurrentOrFutureMonth(current: ProgressMonth, now = new Date()): boolean {
   const latest = toLocalMonth(now);
 
-  return current.year > latest.year || (current.year === latest.year && current.month >= latest.month);
+  return (
+    current.year > latest.year || (current.year === latest.year && current.month >= latest.month)
+  );
 }
 
 export function toMonthDate(current: ProgressMonth): string {
